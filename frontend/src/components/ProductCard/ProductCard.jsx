@@ -39,7 +39,7 @@ const ProductCard = ({ product }) => {
       image
         ? image.startsWith("http")
           ? image
-          : `${import.meta.env.VITE_BACKEND_URL}/${image}`
+          :`${import.meta.env.VITE_BACKEND_URL}/${image}`
         : "https://via.placeholder.com/300"
     );
 

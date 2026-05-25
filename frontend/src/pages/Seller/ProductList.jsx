@@ -183,7 +183,7 @@ function ProductList() {
                         src={
                           p.image?.startsWith("http")
                             ? p.image
-                            : `${import.meta.env.VITE_BACKEND_URL}/${p.image}`
+                            :`${import.meta.env.VITE_BACKEND_URL}/${p.image}`
                         }
                         alt={p.name}
                         className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-300 ease-out"

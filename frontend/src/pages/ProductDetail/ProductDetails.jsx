@@ -51,7 +51,7 @@ function ProductDetails() {
   const firstImage =
     fetchedProduct.image.startsWith("http")
       ? fetchedProduct.image
-      : `${import.meta.env.VITE_BACKEND_URL}/${fetchedProduct.image}`;
+      :`${import.meta.env.VITE_BACKEND_URL}/${fetchedProduct.image}`;
 
   setActiveImage(firstImage);
 }
@@ -61,7 +61,7 @@ function ProductDetails() {
 
           try {
             const allProductsRes = await fetch(
-              `"${import.meta.env.VITE_BACKEND_URL}/api/products"`
+              `${import.meta.env.VITE_BACKEND_URL}/api/products`
             );
 
             const allProductsData =
@@ -146,7 +146,7 @@ const imageGallery = product.image
   ? [
       product.image.startsWith("http")
         ? product.image
-        : `${import.meta.env.VITE_BACKEND_URL}/${product.image}`,
+        :`${import.meta.env.VITE_BACKEND_URL}/${product.image}`,
     ]
   : ["https://via.placeholder.com/400"];
 

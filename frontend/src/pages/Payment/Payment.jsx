@@ -108,7 +108,7 @@ function Payment() {
 
         const response =
           await fetch(
-            `"${import.meta.env.VITE_BACKEND_URL}/api/orders/create"`,
+            `${import.meta.env.VITE_BACKEND_URL}/api/orders/create`,
             {
               method: "POST",
 
@@ -225,7 +225,7 @@ function Payment() {
 
         const orderResponse =
           await fetch(
-            `"${import.meta.env.VITE_BACKEND_URL}/api/payment/create-order"`,
+            `${import.meta.env.VITE_BACKEND_URL}/api/payment/create-order`,
             {
               method: "POST",
 
@@ -289,7 +289,7 @@ function Payment() {
 
                 const verifyRes =
                   await fetch(
-                    `"${import.meta.env.VITE_BACKEND_URL}/api/payment/verify-payment"`,
+                    `${import.meta.env.VITE_BACKEND_URL}/api/payment/verify-payment`,
                     {
                       method:
                         "POST",
