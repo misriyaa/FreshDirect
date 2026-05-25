@@ -13,8 +13,8 @@ const Orders = () => {
 const fetchOrders = async () => {
   try {
     const response = await fetch(
-      `${import.meta.env.VITE_BACKEND_URL}/orders/all`
-    );
+  `${import.meta.env.VITE_BACKEND_URL}/api/orders`
+);
 
     const data = await response.json();
 
@@ -33,7 +33,7 @@ const fetchOrders = async () => {
     try {
 
       const response = await fetch(
-        `${import.meta.env.VITE_BACKEND_URL}/orders/status/${orderId}`,
+        `${import.meta.env.VITE_BACKEND_URL}/api/orders/status/${orderId}`,
         {
           method: "PUT",
           headers: {

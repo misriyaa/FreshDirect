@@ -99,3 +99,30 @@ export const getAllOrders = async (req, res) => {
     });
   }
 };
+
+// UPDATE ORDER STATUS
+export const updateOrderStatus = async (req, res) => {
+  try {
+
+    const order = await Order.findByIdAndUpdate(
+      req.params.id,
+      {
+        status: req.body.status,
+      },
+      { new: true }
+    );
+
+    res.json({
+      success: true,
+      order,
+    });
+
+  } catch (error) {
+
+    res.status(500).json({
+      success: false,
+      message: error.message,
+    });
+
+  }
+};

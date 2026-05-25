@@ -15,6 +15,11 @@ const orderSchema = new mongoose.Schema(
       default: "Processing",
     },
 
+    isPaid: {
+      type: Boolean,
+      default: false,
+    },
+
     address: Object,
 
     items: Array,
