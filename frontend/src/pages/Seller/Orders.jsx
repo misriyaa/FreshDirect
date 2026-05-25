@@ -4,54 +4,79 @@ import { toast } from 'react-toastify';
 const Orders = () => {
   const boxIcon = "https://raw.githubusercontent.com/prebuiltui/prebuiltui/main/assets/e-commerce/boxIcon.svg";
 
-  // 1. DYNAMIC STATE ARRAY INTEGRATING ACTIVE MERCHANT ORDERS
-  const [orderList, setOrderList] = useState([
-    { 
-      id: "ORD-9831", 
-      items: [{ product: { name: "Organic Cavendish Bananas" }, quantity: 3, unit: "kg" }], 
-      address: { firstName: "Nafeesathul", lastName: "Misriya", street: "313 Palakkad Hwy", city: "Thachanattukara", state: "Kerala", zipcode: "678583", country: "India" }, 
-      amount: 180, 
-      paymentType: "UPI", 
-      orderDate: "22/05/2026", 
-      isPaid: true,
-      status: "Processing"
-    },
-    { 
-      id: "ORD-7422", 
-      items: [
-        { product: { name: "Fresh Hybrid Carrots" }, quantity: 2, unit: "kg" },
-        { product: { name: "Exotic Baby Spinach Pack" }, quantity: 1, unit: "units" }
-      ], 
-      address: { firstName: "John", lastName: "Doe", street: "123 Main St", city: "Kochi", state: "Kerala", zipcode: "682001", country: "India" }, 
-      amount: 200, 
-      paymentType: "Net Banking", 
-      orderDate: "20/05/2026", 
-      isPaid: true,
-      status: "Shipped"
-    },
-    { 
-      id: "ORD-1049", 
-      items: [{ product: { name: "Exotic Baby Spinach Pack" }, quantity: 2, unit: "units" }], 
-      address: { firstName: "Jane", lastName: "Smith", street: "456 Park Avenue", city: "Bangalore", state: "Karnataka", zipcode: "560001", country: "India" }, 
-      amount: 240, 
-      paymentType: "COD", 
-      orderDate: "19/05/2026", 
-      isPaid: false,
-      status: "Processing"
-    },
-  ]);
+ const [orderList, setOrderList] =
+  useState([]);
+  useEffect(() => {
+  fetchOrders();
+}, []);
+
+const fetchOrders = async () => {
+  try {
+    const response = await fetch(
+      `${import.meta.env.VITE_BACKEND_URL}/orders/all`
+    );
+
+    const data = await response.json();
+
+    if (data.success) {
+      setOrderList(data.orders);
+    }
+  } catch (error) {
+    console.log(error);
+  }
+};
 
   // 2. DYNAMICALLY UPDATE ORDER LOGISTICS STATUS
-  const handleStatusChange = (orderId, newStatus) => {
-    setOrderList(prevOrders => 
-      prevOrders.map(order => {
-        if (order.id === orderId) {
-          toast.success(`Order ${orderId} has been updated to "${newStatus}".`);
-          return { ...order, status: newStatus };
+ const handleStatusChange =
+  async (orderId, newStatus) => {
+
+    try {
+
+      const response = await fetch(
+        `${import.meta.env.VITE_BACKEND_URL}/orders/status/${orderId}`,
+        {
+          method: "PUT",
+          headers: {
+            "Content-Type":
+              "application/json",
+          },
+          body: JSON.stringify({
+            status: newStatus,
+          }),
         }
-        return order;
-      })
-    );
+      );
+
+      const data =
+        await response.json();
+
+      if (data.success) {
+
+        setOrderList((prev) =>
+          prev.map((order) =>
+            order._id === orderId
+              ? {
+                  ...order,
+                  status: newStatus,
+                }
+              : order
+          )
+        );
+
+        toast.success(
+          `Order updated to ${newStatus}`
+        );
+      }
+
+    } catch (error) {
+
+      console.log(error);
+
+      toast.error(
+        "Failed to update order"
+      );
+
+    }
+
   };
 
   return (
@@ -123,7 +148,7 @@ const Orders = () => {
                 <div className="w-full sm:w-auto md:w-full">
                   <select 
                     value={order.status} 
-                    onChange={(e) => handleStatusChange(order.id, e.target.value)}
+                    onChange={(e) => handleStatusChange(order._id, e.target.value)}
                     className={`outline-none px-3 py-1.5 rounded-md text-xs font-bold w-full cursor-pointer border appearance-none transition-all
                       ${order.status === 'Delivered' ? 'bg-[#1a8a50]/8 border-[#1a8a50]/20 text-[#1a8a50]' : ''}
                       ${order.status === 'Shipped' ? 'bg-blue-50 border-blue-200 text-blue-600' : ''}
