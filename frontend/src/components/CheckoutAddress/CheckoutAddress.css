@@ -1,0 +1,241 @@
+/* ================= CHOOSE ADDRESS PANE SYSTEM ================= */
+.checkout-pane-card {
+  background-color: var(--nk-white, #ffffff);
+  border: 1px solid var(--nk-border, #d4ede0);
+  border-radius: 0.5rem;
+  padding: 2.5rem 2rem;
+  box-sizing: border-box;
+}
+
+.pane-heading {
+  font-size: 2rem;
+  font-weight: 700;
+  color: var(--nk-dark, #001a0e);
+  margin: 0 0 0.375rem 0;
+  letter-spacing: -0.01em;
+}
+
+.pane-subheading {
+  font-size: 0.875rem;
+  color: var(--nk-muted, #5a7a65);
+  margin: 0 0 2.5rem 0;
+  font-weight: 500;
+}
+
+/* ================= GRID TRACK WRAPPER MODULES ================= */
+.address-cards-flex-wrap {
+  display: grid;
+  grid-template-columns: 1fr;
+  gap: 1.5rem;
+  width: 100%;
+}
+
+/* Add New Address Dashed Control Button Box */
+.add-address-dash-card {
+  border: 1px dashed var(--nk-pink, #1a8a50);
+  border-radius: 0.5rem;
+  min-height: 180px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  gap: 0.5rem;
+  cursor: pointer;
+  background-color: rgba(26, 138, 80, 0.01);
+  transition: background-color 0.2s ease, transform 0.2s ease;
+  box-sizing: border-box;
+}
+
+.add-address-dash-card:hover {
+  background-color: rgba(26, 138, 80, 0.04);
+  transform: translateY(-2px);
+}
+
+.add-address-dash-card .plus-symbol {
+  font-size: 2.25rem;
+  color: var(--nk-pink, #1a8a50);
+  font-weight: 300;
+  line-height: 1;
+}
+
+.add-address-dash-card .dash-card-text {
+  font-size: 0.875rem;
+  font-weight: 700;
+  color: var(--nk-pink, #1a8a50);
+}
+
+/* ================= COMPACT NYKAA STYLE DISPLAY CARDS ================= */
+.nykaa-address-display-card {
+  border: 1px solid var(--nk-border, #d4ede0);
+  border-radius: 0.5rem;
+  padding: 1.5rem;
+  background-color: var(--nk-white, #ffffff);
+  display: flex;
+  flex-direction: column;
+  box-shadow: 0 4px 12px rgba(0, 26, 14, 0.02);
+  box-sizing: border-box;
+  transition: transform 0.2s ease, box-shadow 0.2s ease;
+}
+
+.nykaa-address-display-card:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 6px 16px rgba(0, 26, 14, 0.04);
+}
+
+.address-card-header-row {
+  display: flex;
+  align-items: center;
+  gap: 0.75rem;
+  margin-bottom: 0.75rem;
+}
+
+.address-owner-name {
+  font-size: 1rem;
+  font-weight: 700;
+  text-transform: capitalize;
+  color: var(--nk-dark, #001a0e);
+}
+
+.default-pill-badge {
+  background-color: #e3f2fd;
+  color: #1e88e5;
+  font-size: 0.688rem;
+  font-weight: 700;
+  padding: 0.125rem 0.5rem;
+  border-radius: 0.25rem;
+  letter-spacing: 0.02em;
+}
+
+.address-text-paragraph {
+  font-size: 0.875rem;
+  color: #495864;
+  line-height: 1.5;
+  margin: 0 0 1.5rem 0;
+  flex: 1; /* Pushes action buttons down to perfectly align bottoms */
+}
+
+/* Card Actions Section Footer Triggers */
+.address-card-actions-footer {
+  display: flex;
+  gap: 1rem;
+  width: 100%;
+}
+
+.addr-edit-btn {
+  background-color: var(--nk-white, #ffffff);
+  border: 1px solid #cbd5e1;
+  padding: 0.625rem 1.25rem;
+  font-size: 0.875rem;
+  font-weight: 600;
+  border-radius: 0.25rem;
+  cursor: pointer;
+  color: #475569;
+  font-family: inherit;
+  transition: all 0.2s ease;
+}
+
+.addr-edit-btn:hover {
+  border-color: var(--nk-pink, #1a8a50);
+  color: var(--nk-pink, #1a8a50);
+}
+
+.addr-deliver-here-btn {
+  flex: 1;
+  background-color: var(--nk-pink, #1a8a50);
+  color: var(--nk-white, #ffffff);
+  border: none;
+  padding: 0.625rem 1.25rem;
+  font-size: 0.875rem;
+  font-weight: 700;
+  border-radius: 0.25rem;
+  cursor: pointer;
+  font-family: inherit;
+  transition: background-color 0.2s ease;
+}
+
+.addr-deliver-here-btn:hover {
+  background-color: var(--nk-pink-hover, #15703f);
+}
+
+/* ================= INLINE FORM ADD COORDINATES PANEL ================= */
+.inline-add-address-form {
+  background-color: var(--nk-bg-gray, #f0f9f4);
+  border: 1px solid var(--nk-border, #d4ede0);
+  padding: 1.75rem;
+  border-radius: 0.5rem;
+  box-sizing: border-box;
+}
+
+.inline-add-address-form h3 {
+  margin: 0 0 1.25rem 0;
+  font-size: 1.15rem;
+  font-weight: 700;
+  color: var(--nk-dark, #001a0e);
+}
+
+.form-group-row {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 1rem;
+}
+
+.inline-add-address-form input {
+  width: 100%;
+  padding: 0.75rem 1rem;
+  border: 1px solid #cbd5e1;
+  border-radius: 0.25rem;
+  margin-bottom: 1rem;
+  outline: none;
+  font-size: 0.875rem;
+  font-family: inherit;
+  box-sizing: border-box;
+  background-color: var(--nk-white, #ffffff);
+  transition: border-color 0.2s ease;
+}
+
+.inline-add-address-form input:focus {
+  border-color: var(--nk-pink, #1a8a50);
+}
+
+.form-buttons-row {
+  display: flex;
+  justify-content: flex-end;
+  gap: 1rem;
+  margin-top: 0.5rem;
+}
+
+.addr-cancel-btn {
+  background: transparent;
+  border: none;
+  font-weight: 700;
+  color: var(--nk-muted, #5a7a65);
+  cursor: pointer;
+  font-size: 0.875rem;
+}
+
+.addr-cancel-btn:hover {
+  color: var(--nk-dark, #001a0e);
+}
+
+.addr-save-btn {
+  background-color: var(--nk-dark, #001a0e);
+  color: var(--nk-white, #ffffff);
+  padding: 0.625rem 1.5rem;
+  border: none;
+  border-radius: 0.25rem;
+  font-weight: 700;
+  cursor: pointer;
+  font-size: 0.875rem;
+  transition: opacity 0.2s ease;
+}
+
+.addr-save-btn:hover {
+  opacity: 0.9;
+}
+
+/* ================= RESPONSIVE VIEWPORT BREAKPOINTS ================= */
+@media (min-width: 640px) {
+  .address-cards-flex-wrap {
+    grid-template-columns: repeat(2, 1fr); /* 2 columns wide on tablets and larger desktops */
+  }
+}

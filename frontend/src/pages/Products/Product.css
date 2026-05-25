@@ -1,0 +1,355 @@
+/* Core Styling Parameters Configuration */
+:root {
+  --page-bg: #f8fafc;
+  --sidebar-card-white: #ffffff;
+  --text-dark: #1e293b;
+  --text-gray-secondary: #64748b;
+  --brand-green-accent: #2e7d32;
+  --brand-green-hover: #1b5e20;
+  --border-light-gray: #e2e8f0;
+  --app-font: "Plus Jakarta Sans", sans-serif;
+}
+
+/* Master Page Canvas Frame Outer Wrapper */
+.products-layout-page {
+  width: 100%;
+  min-height: 100vh;
+  background-color: var(--page-bg);
+  font-family: var(--app-font);
+  box-sizing: border-box;
+}
+
+/* Internal Layout Tracking Grid Boundaries */
+.products-page-container {
+  max-width: 1440px;
+  margin: 0 auto;
+  padding: 3rem 1.5rem;
+  display: flex;
+  flex-direction: column;
+  gap: 2rem;
+}
+
+/* ================= COMPACT SIDEBAR COMPONENT RULES ================= */
+.filter-sidebar {
+  width: 100%;
+  background-color: var(--sidebar-card-white);
+  border-radius: 1.25rem;
+  padding: 1.75rem;
+  border: 1px solid var(--border-light-gray);
+  box-shadow: 0 4px 20px rgba(0, 0, 0, 0.02);
+  display: flex;
+  flex-direction: column;
+  gap: 1.75rem;
+  height: fit-content;
+  box-sizing: border-box;
+}
+
+.filter-section-title {
+  font-size: 1.125rem;
+  font-weight: 700;
+  color: var(--text-dark);
+  margin: 0 0 1.25rem 0;
+}
+
+/* Custom Interactive Category Input Switches */
+.radio-group {
+  display: flex;
+  flex-direction: column;
+  gap: 1rem;
+}
+
+.radio-label {
+  display: flex;
+  align-items: center;
+  gap: 0.75rem;
+  font-size: 0.938rem;
+  font-weight: 500;
+  color: var(--text-gray-secondary);
+  cursor: pointer;
+  position: relative;
+  user-select: none;
+}
+
+.radio-label input {
+  position: absolute;
+  opacity: 0;
+  cursor: pointer;
+}
+
+/* Custom Radio Indicator Mapping matching UI shot */
+.custom-radio {
+  width: 1.125rem;
+  height: 1.125rem;
+  border: 2px solid #cbd5e1;
+  border-radius: 50%;
+  display: inline-block;
+  position: relative;
+  transition: all 0.15s ease;
+}
+
+.radio-label input:checked ~ .custom-radio {
+  border-color: var(--brand-green-accent);
+}
+
+.custom-radio::after {
+  content: "";
+  position: absolute;
+  display: none;
+  top: 50%;
+  left: 50%;
+  width: 0.5rem;
+  height: 0.5rem;
+  border-radius: 50%;
+  background: var(--brand-green-accent);
+  transform: translate(-50%, -50%);
+}
+
+.radio-label input:checked ~ .custom-radio::after {
+  display: block;
+}
+
+.radio-label input:checked {
+  color: var(--text-dark);
+}
+
+/* Double Parameter Boundary Price Row Inputs */
+.price-range-inputs {
+  display: flex;
+  align-items: center;
+  gap: 0.75rem;
+}
+
+.price-input-field {
+  width: 100%;
+  padding: 0.625rem 0.875rem;
+  border: 1px solid var(--border-light-gray);
+  border-radius: 0.5rem;
+  outline: none;
+  font-size: 0.875rem;
+  color: var(--text-dark);
+  font-family: var(--app-font);
+  transition: border-color 0.15s ease;
+}
+
+.price-input-field:focus {
+  border-color: var(--brand-green-accent);
+}
+
+/* Clears generic spinner increments inside standard browsers tracking number states */
+.price-input-field::-webkit-outer-spin-button,
+.price-input-field::-webkit-inner-spin-button {
+  -webkit-appearance: none;
+  margin: 0;
+}
+
+.range-divider {
+  color: var(--text-gray-secondary);
+  font-weight: 600;
+}
+
+/* Sort Controller Input Buttons */
+.sort-toggle-btn {
+  background-color: #f1f5f9;
+  color: #475569;
+  border: none;
+  font-size: 0.875rem;
+  font-weight: 600;
+  padding: 0.75rem 1rem;
+  border-radius: 0.5rem;
+  cursor: pointer;
+  transition: background-color 0.15s ease;
+  font-family: var(--app-font);
+}
+
+.sort-toggle-btn:hover {
+  background-color: #e2e8f0;
+}
+
+
+/* ================= MAIN PRODUCTS LISTING GRID RULES ================= */
+.products-main-content {
+  flex: 1;
+}
+
+.products-grid-layout {
+  display: grid;
+  grid-template-columns: 1fr; /* Default mobile displays stack cards vertically */
+  gap: 1.5rem;
+}
+
+/* Structural Card Element Box Rules */
+.grid-product-card {
+  background-color: var(--sidebar-card-white);
+  border-radius: 1.25rem;
+  overflow: hidden;
+  border: 1px solid var(--border-light-gray);
+  box-shadow: 0 4px 15px rgba(0, 0, 0, 0.01);
+  display: flex;
+  flex-direction: column;
+  box-sizing: border-box;
+  transition: transform 0.2s ease, box-shadow 0.2s ease;
+}
+
+.grid-product-card:hover {
+  transform: translateY(-4px);
+  box-shadow: 0 10px 25px rgba(0, 0, 0, 0.04);
+}
+
+/* Image containment zone tracking top actions */
+.product-card-image-box {
+  width: 100%;
+  height: 220px;
+  background-color: #e2e8f0;
+  position: relative;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  overflow: hidden;
+}
+
+/* Dynamic background asset rendering layer */
+.card-bg-render-img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  opacity: 0.12; /* Subtle opacity watermark representation exactly mirroring screenshot layouts */
+  position: absolute;
+  top: 0;
+  left: 0;
+  z-index: 1;
+}
+
+/* Absolute top floating labels */
+.card-type-badge {
+  position: absolute;
+  top: 1rem;
+  right: 1rem;
+  background-color: var(--sidebar-card-white);
+  color: #334155;
+  font-size: 0.75rem;
+  font-weight: 700;
+  padding: 0.25rem 0.75rem;
+  border-radius: 9999px;
+  box-shadow: 0 2px 8px rgba(0,0,0,0.06);
+  z-index: 3;
+}
+
+/* Giant background typography descriptors */
+.card-placeholder-text-fallback {
+  position: relative;
+  z-index: 2;
+  font-size: 3.5rem;
+  font-weight: 800;
+  color: rgba(30, 41, 59, 0.25); /* Muted contrast overlay */
+  letter-spacing: -0.02em;
+  pointer-events: none;
+  user-select: none;
+}
+
+/* Product Info Block Details */
+.product-card-body-info {
+  padding: 1.5rem;
+  display: flex;
+  flex-direction: column;
+}
+
+.card-product-title {
+  font-size: 1.25rem;
+  font-weight: 800;
+  color: #0f172a;
+  margin: 0 0 0.375rem 0;
+}
+
+.card-product-description {
+  font-size: 0.875rem;
+  color: var(--text-gray-secondary);
+  margin: 0 0 1.25rem 0;
+  font-weight: 500;
+}
+
+/* Metric Display Rows formatting */
+.card-price-display-row {
+  display: flex;
+  align-items: baseline;
+  gap: 0.25rem;
+  margin-bottom: 1.25rem;
+}
+
+.currency-symbol {
+  font-size: 1.375rem;
+  font-weight: 800;
+  color: var(--brand-green-accent);
+}
+
+.unit-text {
+  font-size: 0.813rem;
+  font-weight: 600;
+  color: var(--text-gray-secondary);
+}
+
+/* Primary Action Click buttons */
+.card-add-cart-btn {
+  width: 100%;
+  background-color: var(--brand-green-accent);
+  color: var(--sidebar-card-white);
+  border: none;
+  padding: 0.875rem 1rem;
+  border-radius: 0.625rem;
+  font-size: 0.938rem;
+  font-weight: 700;
+  cursor: pointer;
+  font-family: var(--app-font);
+  transition: background-color 0.15s ease;
+}
+
+.card-add-cart-btn:hover {
+  background-color: var(--brand-green-hover);
+}
+
+.no-products-fallback {
+  width: 100%;
+  text-align: center;
+  padding: 4rem 1rem;
+  color: var(--text-gray-secondary);
+  font-weight: 600;
+  font-size: 1.125rem;
+}
+
+/* ================= HOVER VIEWPORTS MEDIA ADJUSTMENTS ================= */
+
+/* Tablet Viewports (640px up to Desktop dimensions) */
+@media (min-width: 640px) {
+  .products-grid-layout {
+    grid-template-columns: repeat(2, 1fr);
+  }
+}
+
+/* Desktop Viewports Framework Splits (1024px and up) */
+@media (min-width: 1024px) {
+  .products-page-container {
+    flex-direction: row; /* Sideways split setup executes securely */
+    padding: 4rem 4rem;
+    gap: 2.5rem;
+  }
+
+  .filter-sidebar {
+    width: 290px; /* Locked standard sidebar horizontal metric */
+    position: sticky;
+    top: 100px; /* Holds container position in case top layout headers are fixed */
+  }
+
+  .products-grid-layout {
+    grid-template-columns: repeat(2, 1fr); /* 2 Column split layouts tracking standard desktop widths */
+  }
+}
+
+/* Large Desktop Breakpoints (1280px and up) */
+@media (min-width: 1280px) {
+  .products-page-container {
+    padding: 4rem 6rem;
+  }
+
+  .products-grid-layout {
+    grid-template-columns: repeat(3, 1fr); /* Expands cleanly to matching your 3-Card screenshot view */
+  }
+}

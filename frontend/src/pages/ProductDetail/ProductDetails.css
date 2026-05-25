@@ -1,0 +1,308 @@
+.product-details-page {
+  max-width: 1440px;
+  margin: 6rem auto;
+  padding: 0 1.5rem;
+  font-family: "Plus Jakarta Sans", sans-serif;
+  box-sizing: border-box;
+}
+
+.breadcrumb-strip {
+  font-size: 0.875rem;
+  color: #64748b;
+  margin-bottom: 2.5rem;
+  font-weight: 500;
+}
+
+.breadcrumb-strip a {
+  text-decoration: none;
+  color: #1b5e20;
+}
+
+.breadcrumb-strip a:hover {
+  text-decoration: underline;
+}
+
+.current-crumb {
+  color: #64748b;
+}
+
+/* Structural Master Layout Configuration Split Columns */
+.details-card-body {
+  display: flex;
+  flex-direction: column;
+  gap: 3.5rem;
+}
+
+/* Horizontal Gallery Track Framework Configurations */
+.details-gallery-column {
+  display: flex;
+  gap: 1.25rem;
+  flex: 1.1;
+}
+
+.thumb-box {
+  width: 4.75rem;
+  height: 4.75rem;
+  border: 1px solid #cbd5e1;
+  border-radius: 0.5rem;
+  overflow: hidden;
+  cursor: pointer;
+  padding: 0.25rem;
+  background-color: #ffffff;
+  transition: all 0.2s ease;
+}
+
+.thumb-box img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  border-radius: 0.25rem;
+}
+
+.thumb-box:hover,
+.thumb-box.selected {
+  border-color: #1b5e20;
+  border-width: 2px;
+  transform: scale(1.02);
+}
+
+.master-preview-frame {
+  flex: 1;
+  height: 440px;
+  border: 1px solid #e2e8f0;
+  border-radius: 0.75rem;
+  overflow: hidden;
+  background-color: #ffffff;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 1rem;
+}
+
+.master-preview-frame img {
+  max-width: 100%;
+  max-height: 100%;
+  object-fit: contain;
+}
+
+/* Content Information Segment Descriptions Column formatting rules */
+.details-content-column {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+}
+
+.details-title {
+  font-size: 2.25rem;
+  font-weight: 800;
+  color: #0f172a;
+  margin: 0 0 0.5rem 0;
+  letter-spacing: -0.02em;
+}
+
+.details-stars-row {
+  display: flex;
+  align-items: center;
+  gap: 0.625rem;
+  margin-bottom: 2rem;
+}
+
+.details-gold-stars {
+  display: flex;
+  gap: 0.125rem;
+}
+
+.details-review-tally {
+  font-size: 0.875rem;
+  color: #64748b;
+  font-weight: 600;
+}
+
+/* Metric Price parameters stacked items formatting layout features elements */
+.details-pricing-panel {
+  display: flex;
+  flex-direction: column;
+  margin-bottom: 2rem;
+}
+
+.mrp-strikethrough-tag {
+  font-size: 0.875rem;
+  color: #94a3b8;
+  font-weight: 600;
+}
+
+.mrp-active-row {
+  display: flex;
+  align-items: baseline;
+  gap: 0.5rem;
+  margin-top: 0.125rem;
+}
+
+.mrp-tag-text {
+  font-size: 1.35rem;
+  font-weight: 700;
+  color: #475569;
+}
+
+.mrp-actual-value {
+  font-size: 2.25rem;
+  font-weight: 800;
+  color: #0f172a;
+}
+
+.mrp-inclusive-notice {
+  font-size: 0.813rem;
+  color: #94a3b8;
+  font-weight: 500;
+  margin-top: 0.25rem;
+}
+
+/* Copy List details lists components bullet descriptors fields */
+.details-about-section h3 {
+  font-size: 1.1rem;
+  font-weight: 800;
+  color: #0f172a;
+  margin: 0 0 0.75rem 0;
+}
+
+.details-specs-list {
+  list-style: none;
+  padding: 0;
+  margin: 0 0 2.5rem 0;
+  display: flex;
+  flex-direction: column;
+  gap: 0.625rem;
+}
+
+.details-specs-list li {
+  font-size: 0.938rem;
+  color: #475569;
+  font-weight: 500;
+  position: relative;
+  padding-left: 1.25rem;
+  line-height: 1.5;
+}
+
+.details-specs-list li::before {
+  content: "•";
+  position: absolute;
+  left: 0;
+  color: #1b5e20;
+  font-size: 1.25rem;
+  line-height: 1;
+}
+
+/* Main Dual CTA Button interaction triggers styles settings rules controls */
+.details-cta-button-row {
+  display: flex;
+  gap: 1.25rem;
+  margin-top: auto;
+}
+
+.details-cart-add-btn {
+  flex: 1;
+  background-color: #f1f5f9;
+  color: #334155;
+  border: none;
+  padding: 1.125rem 1.5rem;
+  font-size: 1rem;
+  font-weight: 700;
+  border-radius: 0.5rem;
+  cursor: pointer;
+  transition: all 0.2s ease;
+}
+
+.details-cart-add-btn:hover {
+  background-color: #e2e8f0;
+}
+
+.details-buy-now-btn {
+  flex: 1.4;
+  background-color: #1b5e20;
+  color: #ffffff;
+  border: none;
+  padding: 1.125rem 1.5rem;
+  font-size: 1rem;
+  font-weight: 700;
+  border-radius: 0.5rem;
+  cursor: pointer;
+  box-shadow: 0 4px 15px rgba(27, 94, 32, 0.15);
+  transition: all 0.2s ease;
+}
+
+.details-buy-now-btn:hover {
+  background-color: #144517;
+}
+
+/* Fallback state empty nodes indicators frameworks sizes settings features */
+.details-error-wrapper {
+  text-align: center;
+  padding: 6rem 1rem;
+}
+
+.error-back-btn {
+  display: inline-block;
+  margin-top: 1rem;
+  background-color: #1b5e20;
+  color: #ffffff;
+  text-decoration: none;
+  padding: 0.75rem 1.5rem;
+  border-radius: 0.5rem;
+  font-weight: 700;
+}
+
+/* ================= SIMILAR PRODUCTS LAYOUT SECTION ================= */
+.similar-products-section {
+  margin-top: 5rem;
+  width: 100%;
+}
+
+.section-divider {
+  border: none;
+  border-top: 1px solid #e2e8f0;
+  margin-bottom: 2.5rem;
+}
+
+.similar-title {
+  font-size: 1.75rem;
+  font-weight: 800;
+  color: #0f172a;
+  margin: 0 0 2rem 0;
+  letter-spacing: -0.02em;
+}
+
+.similar-products-grid {
+  display: grid;
+  grid-template-columns: 1fr;
+  gap: 2rem;
+  justify-items: center;
+}
+
+/* --- Responsive Layout Breakpoints --- */
+
+@media (min-width: 640px) {
+  .similar-products-grid {
+    grid-template-columns: repeat(2, 1fr);
+  }
+}
+
+@media (min-width: 768px) {
+  .details-card-body {
+    flex-direction: row;
+    align-items: flex-start;
+  }
+}
+
+@media (min-width: 968px) {
+  .similar-products-grid {
+    grid-template-columns: repeat(3, 1fr);
+    gap: 1.5rem;
+  }
+}
+
+@media (min-width: 1200px) {
+  .similar-products-grid {
+    grid-template-columns: repeat(4, 1fr);
+    gap: 2rem;
+  }
+}

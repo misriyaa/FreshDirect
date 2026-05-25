@@ -1,0 +1,191 @@
+/* ==========================================================================
+   SELLER PORTAL AUTH STYLES (Premium Minimalist Light-Mode Theme)
+   ========================================================================== */
+
+.seller-auth-container {
+  position: relative;
+  width: 100%;
+  min-height: 100vh;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background-color: #fafbfc; /* Crisp, high-end off-white base layer */
+  overflow: hidden;
+  font-family: "Plus Jakarta Sans", -apple-system, BlinkMacSystemFont, sans-serif;
+  padding: 24px;
+  box-sizing: border-box;
+}
+
+/* Subtle, sophisticated background linear structural mesh instead of a harsh glow */
+.seller-auth-backdrop-glow {
+  position: absolute;
+  width: 100%;
+  height: 100%;
+  background-image: 
+    radial-gradient(at 0% 0%, rgba(26, 138, 80, 0.03) 0px, transparent 50%),
+    radial-gradient(at 100% 100%, rgba(15, 110, 86, 0.02) 0px, transparent 50%);
+  top: 0;
+  left: 0;
+  transform: none;
+  z-index: 1;
+  pointer-events: none;
+}
+
+.seller-auth-card {
+  position: relative;
+  z-index: 2;
+  width: 100%;
+  max-width: 420px;
+  background: #ffffff;
+  border: 1px solid #e2e8f0; /* Ultra-clean light gray edge line border */
+  border-radius: 16px;
+  padding: 40px;
+  box-shadow: 
+    0 4px 6px -1px rgba(0, 0, 0, 0.01), 
+    0 20px 25px -5px rgba(15, 23, 42, 0.04); /* Soft, natural layout drop shadows */
+  transition: all 0.3s cubic-bezier(0.16, 1, 0.3, 1);
+  box-sizing: border-box;
+}
+
+.seller-auth-card:hover {
+  border-color: #cbd5e1;
+  box-shadow: 
+    0 10px 15px -3px rgba(0, 0, 0, 0.02), 
+    0 24px 36px -4px rgba(15, 23, 42, 0.07);
+  transform: translateY(-2px); /* Premium micro-lift elevation */
+}
+
+.seller-auth-header {
+  text-align: center;
+  margin-bottom: 28px;
+}
+
+.seller-auth-header h2 {
+  color: #0f172a; /* Deep slate gray for sharp, legible hierarchy reading text */
+  font-size: 1.625rem;
+  font-weight: 700;
+  letter-spacing: -0.03em;
+  margin-bottom: 8px;
+}
+
+.seller-auth-header p {
+  color: #64748b; /* Soft contrasting slate description text */
+  font-size: 0.875rem;
+  line-height: 1.5;
+  font-weight: 500;
+}
+
+/* Form Styles */
+.seller-auth-form {
+  display: flex;
+  flex-direction: column;
+  gap: 18px;
+}
+
+.form-group {
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
+}
+
+.form-group label {
+  color: #334155;
+  font-size: 0.813rem;
+  font-weight: 600;
+  letter-spacing: -0.01em;
+}
+
+.form-group input {
+  width: 100%;
+  padding: 11px 14px;
+  background: #f8fafc; /* Crisp light grey element input backing fill */
+  border: 1px solid #e2e8f0;
+  border-radius: 8px;
+  color: #0f172a;
+  font-size: 0.875rem;
+  font-weight: 500;
+  font-family: inherit;
+  transition: all 0.2s ease;
+  box-sizing: border-box;
+}
+
+.form-group input:focus {
+  outline: none;
+  background: #ffffff;
+  border-color: #1a8a50; /* Signature clean corporate green focus tracking border */
+  box-shadow: 0 0 0 3px rgba(26, 138, 80, 0.08);
+}
+
+.form-group input::placeholder {
+  color: #94a3b8;
+}
+
+.forgot-password-link {
+  text-align: right;
+  margin-top: -6px;
+}
+
+.forgot-password-link span {
+  color: #64748b;
+  font-size: 0.75rem;
+  font-weight: 600;
+  cursor: pointer;
+  transition: color 0.15s ease;
+}
+
+.forgot-password-link span:hover {
+  color: #1a8a50;
+}
+
+/* Premium Button CTA Layout */
+.seller-submit-btn {
+  width: 100%;
+  padding: 12px;
+  background: #1a8a50; /* Beautiful solid identity green core brand accent */
+  border: none;
+  border-radius: 8px;
+  color: #ffffff;
+  font-size: 0.875rem;
+  font-weight: 700;
+  cursor: pointer;
+  font-family: inherit;
+  transition: all 0.2s cubic-bezier(0.16, 1, 0.3, 1);
+  margin-top: 6px;
+  box-shadow: 0 4px 12px rgba(26, 138, 80, 0.12);
+}
+
+.seller-submit-btn:hover {
+  background: #15703f;
+  box-shadow: 0 6px 16px rgba(26, 138, 80, 0.22);
+}
+
+.seller-submit-btn:active {
+  transform: scale(0.99); /* Premium natural tactile click response */
+}
+
+/* Auth Switching Card Footer */
+.seller-auth-footer {
+  text-align: center;
+  margin-top: 24px;
+  padding-top: 18px;
+  border-top: 1px solid #f1f5f9;
+}
+
+.seller-auth-footer p {
+  color: #64748b;
+  font-size: 0.813rem;
+  font-weight: 500;
+}
+
+.seller-auth-footer span {
+  color: #1a8a50;
+  font-weight: 700;
+  cursor: pointer;
+  margin-left: 4px;
+  transition: color 0.15s ease;
+}
+
+.seller-auth-footer span:hover {
+  color: #15703f;
+  text-decoration: none; /* Removed heavy underline for cleaner high-end typography rules */
+}

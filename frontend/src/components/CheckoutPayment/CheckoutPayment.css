@@ -1,0 +1,304 @@
+/* ================= MAIN CHOOSE PAYMENT METHOD PANE ================= */
+.checkout-pane-card {
+  background-color: var(--nk-white, #ffffff);
+  border: 1px solid var(--nk-border, #d4ede0);
+  border-radius: 0.5rem;
+  padding: 2.5rem 2rem;
+  box-sizing: border-box;
+}
+
+.checkout-pane-card.plain-padding {
+  padding: 0;
+  overflow: hidden;
+}
+
+.payment-panel-header {
+  padding: 2rem 2rem 0 2rem;
+}
+
+.pane-heading {
+  font-size: 2rem;
+  font-weight: 700;
+  color: var(--nk-dark, #001a0e);
+  margin: 0 0 0.375rem 0;
+  letter-spacing: -0.01em;
+}
+
+.pane-subheading {
+  font-size: 0.875rem;
+  color: var(--nk-muted, #5a7a65);
+  margin: 0 0 1.5rem 0;
+  font-weight: 500;
+}
+
+.payment-section-inner-title {
+  font-size: 1.1rem;
+  font-weight: 700;
+  color: var(--nk-dark, #001a0e);
+  padding: 0 2rem;
+  margin: 1rem 0 1.25rem 0;
+}
+
+/* ================= SPLIT DECK CONTAINER ================= */
+.nykaa-payment-split-deck {
+  display: flex;
+  border-top: 1px solid var(--nk-border, #d4ede0);
+  min-height: 420px;
+}
+
+/* ================= LEFT SIDEBAR NAV MENU ================= */
+.payment-navbar-sidebar {
+  flex: 1;
+  background-color: var(--nk-bg-gray, #f0f9f4);
+  border-right: 1px solid var(--nk-border, #d4ede0);
+  display: flex;
+  flex-direction: column;
+}
+
+.pay-nav-tab {
+  display: flex;
+  gap: 1rem;
+  padding: 1.25rem 1.5rem;
+  cursor: pointer;
+  border-bottom: 1px solid var(--nk-border, #d4ede0);
+  align-items: center;
+  transition: all 0.2s ease;
+  background-color: var(--nk-bg-gray, #f0f9f4);
+}
+
+.pay-nav-tab.active {
+  background-color: var(--nk-white, #ffffff);
+  border-left: 4px solid var(--nk-pink, #1a8a50); /* Signature brand green marker */
+  padding-left: 1.25rem;
+}
+
+/* Left Nav Rounded Icon Placeholders */
+.tab-icon-frame {
+  width: 1.75rem;
+  height: 1.75rem;
+  border-radius: 0.375rem;
+  flex-shrink: 0;
+}
+
+.upi-icon-color { background-color: #e0f2fe; }
+.card-icon-color { background-color: #fce7f3; }
+.cod-icon-color { background-color: #dcfce7; }
+.net-icon-color { background-color: #fef9c3; }
+
+.tab-label-stack {
+  display: flex;
+  flex-direction: column;
+  gap: 0.125rem;
+}
+
+.tab-label-stack strong {
+  font-size: 0.875rem;
+  color: var(--nk-dark, #001a0e);
+}
+
+.tab-label-stack span {
+  font-size: 0.75rem;
+  color: var(--nk-muted, #5a7a65);
+  font-weight: 500;
+}
+
+/* ================= RIGHT SIDE VIEWPORT WORKSPACE ================= */
+.payment-panes-viewport-display {
+  flex: 1.4;
+  padding: 2.25rem 2rem;
+  background-color: var(--nk-white, #ffffff);
+}
+
+.payment-panes-viewport-display h3 {
+  margin: 0;
+  font-size: 1.25rem;
+  font-weight: 700;
+  color: var(--nk-dark, #001a0e);
+}
+
+.pane-content-divider {
+  border: none;
+  border-top: 1px solid var(--nk-border, #d4ede0);
+  margin: 1rem 0 1.5rem 0;
+}
+
+/* ================= SCAN UPI QR PANEL ================= */
+.qr-code-display-box-wrapper {
+  border: 1px solid var(--nk-border, #d4ede0);
+  border-radius: 0.5rem;
+  padding: 1.25rem;
+  margin-bottom: 2rem;
+  max-width: 400px;
+  box-sizing: border-box;
+}
+
+.qr-header-row {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 1.25rem;
+}
+
+.qr-header-row strong {
+  font-size: 0.938rem;
+  color: var(--nk-dark, #001a0e);
+}
+
+.checkmark-pink-bubble {
+  background-color: var(--nk-pink, #1a8a50);
+  color: var(--nk-white, #ffffff);
+  width: 1.25rem;
+  height: 1.25rem;
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 0.688rem;
+  font-weight: 700;
+}
+
+.qr-mockup-body {
+  display: flex;
+  gap: 1.25rem;
+  align-items: center;
+}
+
+/* Custom CSS generated fallback QR square */
+.qr-matrix-square {
+  width: 5.5rem;
+  height: 5.5rem;
+  background-color: #cbd5e1;
+  border-radius: 0.375rem;
+  position: relative;
+  flex-shrink: 0;
+}
+
+.qr-corner {
+  position: absolute;
+  width: 1.25rem;
+  height: 1.25rem;
+  border: 3px solid var(--nk-dark, #001a0e);
+  background-color: #ffffff;
+  box-sizing: border-box;
+}
+.qr-corner:nth-child(1) { top: 0.5rem; left: 0.5rem; }
+.qr-corner:nth-child(2) { top: 0.5rem; right: 0.5rem; }
+.qr-corner:nth-child(3) { bottom: 0.5rem; left: 0.5rem; }
+
+.qr-meta-branding {
+  display: flex;
+  flex-direction: column;
+  gap: 0.5rem;
+}
+
+.qr-instructions {
+  font-size: 0.813rem;
+  color: #475569;
+  font-weight: 600;
+}
+
+.upi-logos-row-strip {
+  display: flex;
+  gap: 0.375rem;
+}
+
+.logo-badge {
+  font-size: 0.625rem;
+  font-weight: 700;
+  padding: 0.125rem 0.375rem;
+  border-radius: 0.125rem;
+  color: #ffffff;
+}
+.gpay { background-color: #4285f4; }
+.phonepe { background-color: #5f259f; }
+.paytm { background-color: #00baf2; }
+
+/* ================= CREDIT CARD & SELECT INPUT FORMS ================= */
+.card-form-mock {
+  display: flex;
+  flex-direction: column;
+  gap: 0.875rem;
+  max-width: 400px;
+  margin-bottom: 1.5rem;
+}
+
+.pane-input, 
+.pane-select-input {
+  width: 100%;
+  padding: 0.75rem 1rem;
+  border: 1px solid var(--nk-border, #d4ede0);
+  border-radius: 0.25rem;
+  outline: none;
+  font-size: 0.875rem;
+  background-color: var(--nk-bg-gray, #f0f9f4);
+  font-family: inherit;
+  box-sizing: border-box;
+  transition: all 0.2s ease;
+}
+
+.pane-input:focus, 
+.pane-select-input:focus {
+  border-color: var(--nk-pink, #1a8a50);
+  background-color: var(--nk-white, #ffffff);
+}
+
+.cod-notice-text {
+  font-size: 0.875rem;
+  color: #475569;
+  line-height: 1.5;
+  margin: 0 0 2rem 0;
+  max-width: 440px;
+  font-weight: 500;
+}
+
+/* ================= PRIMARY SECURE CHECKOUT TRIGGER BUTTON ================= */
+.nykaa-final-checkout-btn {
+  width: 100%;
+  max-width: 400px;
+  background-color: var(--nk-pink, #1a8a50);
+  color: var(--nk-white, #ffffff);
+  border: none;
+  padding: 1rem;
+  font-size: 0.938rem;
+  font-weight: 700;
+  border-radius: 0.25rem;
+  cursor: pointer;
+  text-transform: uppercase;
+  letter-spacing: 0.03em;
+  font-family: inherit;
+  box-shadow: 0 4px 14px rgba(26, 138, 80, 0.15);
+  transition: background-color 0.2s ease, transform 0.1s ease;
+  box-sizing: border-box;
+}
+
+.nykaa-final-checkout-btn:hover {
+  background-color: var(--nk-pink-hover, #15703f);
+}
+
+.nykaa-final-checkout-btn:active {
+  transform: scale(0.99);
+}
+
+/* ================= FLEX GRID BREAKPOINT RESPONSIVENESS ================= */
+@media (max-width: 680px) {
+  .nykaa-payment-split-deck {
+    flex-direction: column;
+  }
+  .payment-navbar-sidebar {
+    flex-direction: row;
+    overflow-x: auto;
+    border-right: none;
+    border-bottom: 1px solid var(--nk-border, #d4ede0);
+  }
+  .pay-nav-tab {
+    padding: 1rem;
+    white-space: nowrap;
+  }
+  .pay-nav-tab.active {
+    border-left: none;
+    border-bottom: 3px solid var(--nk-pink, #1a8a50);
+  }
+  .tab-label-stack span {
+    display: none; /* Auto-hides secondary textual indicators on mobile views */
+  }
+}

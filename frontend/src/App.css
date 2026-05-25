@@ -1,0 +1,105 @@
+/* Core Page Layout Padding Reset */
+.home-page {
+  width: 100%;
+  box-sizing: border-box;
+}
+
+/* Section Wrapper Dimensions matching your branding site guidelines */
+.product-carousel-section {
+  max-width: 1440px;
+  margin: 4rem auto;
+  padding: 0 1.5rem;
+  position: relative;
+  box-sizing: border-box;
+  font-family: "Plus Jakarta Sans", sans-serif;
+}
+
+/* Header Heading and Alignment Control Row */
+.carousel-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 2rem;
+}
+
+.section-title {
+  font-size: 1.75rem;
+  font-weight: 800;
+  color: #111111;
+  margin: 0;
+}
+
+/* Navigation Arrow Trigger Elements */
+.carousel-navigation {
+  display: flex;
+  gap: 0.75rem;
+}
+
+.nav-arrow-btn {
+  cursor: pointer;
+  width: 2.75rem;
+  height: 2.75rem;
+  background-color: #ffffff;
+  color: #1b5e20; /* Matches your core theme forest green color */
+  border: 1px solid #e4e4e7;
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.04);
+  transition: all 0.2s cubic-bezier(0.16, 1, 0.3, 1);
+  outline: none;
+}
+
+.nav-arrow-btn:hover {
+  background-color: #1b5e20;
+  color: #ffffff;
+  border-color: #1b5e20;
+  transform: scale(1.05);
+}
+
+.nav-arrow-btn:active {
+  transform: scale(0.95);
+}
+
+/* Scrollable Horizontal Slider Layout Container */
+.carousel-track-container {
+  display: flex;
+  gap: 1.5rem; /* Dynamic layout spaces between components */
+  overflow-x: auto;
+  scroll-behavior: smooth;
+  padding: 1rem 0.25rem 2rem 0.25rem; /* Space at bottom accommodates hover translate actions cleanly */
+  scrollbar-width: none; /* Safely hides visual scrollbar tracks on Firefox systems */
+}
+
+/* Safely hides scrolling tracks across Webkit engine browsers (Chrome, Safari, Edge) */
+.carousel-track-container::-webkit-scrollbar {
+  display: none;
+}
+
+/* Optional Layout Override: Forces inner cards to respect strict inline flex spacing variables */
+.carousel-track-container > div {
+  flex: 0 0 auto; 
+}
+
+/* Responsive Viewport Grid Layout Alignment Modifiers */
+@media (min-width: 768px) {
+  .product-carousel-section {
+    padding: 0 4rem;
+  }
+  .section-title {
+    font-size: 2rem;
+  }
+}
+
+@media (min-width: 1024px) {
+  .product-carousel-section {
+    padding: 0 6rem;
+  }
+}
+
+@media (min-width: 1280px) {
+  .product-carousel-section {
+    padding: 0 8rem;
+  }
+}

@@ -1,0 +1,137 @@
+:root {
+  --bs-green: #1b5e20;
+  --bs-green-hover: #144517;
+  --bs-dark: #111111;
+  --bs-muted: #71717a;
+  --bs-yellow: #FFC000;
+  --bs-white: #ffffff;
+  --bs-font: "Plus Jakarta Sans", sans-serif;
+}
+
+/* Base layout section setup */
+.bestseller-section {
+  max-width: 1440px;
+  margin: 5rem auto;
+  padding: 0 1.5rem;
+  font-family: var(--bs-font);
+  box-sizing: border-box;
+}
+
+/* Header layout configuration */
+.bestseller-header {
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  align-items: flex-start;
+  gap: 1.5rem;
+  margin-bottom: 2rem;
+}
+
+.subtitle-tag {
+  color: var(--bs-green);
+  font-size: 0.813rem;
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: 0.05em;
+  display: inline-block;
+  margin-bottom: 0.25rem;
+}
+
+.bestseller-title {
+  font-size: 2rem;
+  font-weight: 800;
+  color: var(--bs-dark);
+  margin: 0 0 0.5rem 0;
+  letter-spacing: -0.02em;
+}
+
+.bestseller-intro-desc {
+  font-size: 0.938rem;
+  color: var(--bs-muted);
+  line-height: 1.6;
+  max-width: 580px;
+  margin: 0;
+}
+
+/* Carousel Button Elements Container */
+.bestseller-navigation {
+  display: flex;
+  gap: 0.75rem;
+}
+
+.bs-nav-btn {
+  cursor: pointer;
+  width: 2.75rem;
+  height: 2.75rem;
+  background-color: var(--bs-green);
+  color: var(--bs-white);
+  border: 1px solid #e4e4e7;
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.04);
+  transition: all 0.2s cubic-bezier(0.16, 1, 0.3, 1);
+  outline: none;
+}
+
+.bs-nav-btn:hover {
+  background-color: var(--bs-green);
+  color: var(--bs-white);
+  border-color: var(--bs-green);
+  transform: scale(1.05);
+}
+
+.bs-nav-btn:active {
+  transform: scale(0.95);
+}
+
+/* Horizontal Sliding Track Layout Configuration */
+.bestseller-carousel-track {
+  display: flex;
+  gap: 1.5rem;
+  overflow-x: auto;
+  scroll-behavior: smooth;
+  padding: 1rem 0.25rem 2rem 0.25rem; /* Padding bottom handles card lift animations elegantly */
+  scrollbar-width: none; /* Disables scrollbar tracks on Firefox */
+}
+
+/* Disables scrollbars completely for Chrome, Safari, and Edge engines */
+.bestseller-carousel-track::-webkit-scrollbar {
+  display: none;
+}
+
+/* Guard statement: Prevents cards from crushing down inside the slider track flex container */
+.bestseller-carousel-track > div {
+  flex: 0 0 auto;
+}
+
+/* --- Responsive Layout Breakpoints --- */
+
+@media (min-width: 768px) {
+  .bestseller-section {
+    padding: 0 4rem;
+  }
+
+  .bestseller-header {
+    flex-direction: row;
+    align-items: flex-end;
+    gap: 2rem;
+  }
+  
+  .bestseller-title {
+    font-size: 2.25rem;
+  }
+}
+
+@media (min-width: 1024px) {
+  .bestseller-section {
+    padding: 0 6rem;
+  }
+}
+
+@media (min-width: 1280px) {
+  .bestseller-section {
+    padding: 0 8rem;
+  }
+}

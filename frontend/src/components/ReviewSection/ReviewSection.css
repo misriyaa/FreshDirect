@@ -1,0 +1,317 @@
+/* ==========================================================================
+   SIDE-BY-SIDE SPLIT REVIEWS LAYOUT (Premium Light Minimalist Theme)
+   ========================================================================== */
+
+.review-section-container-split {
+  max-width: 1200px;
+  margin: 3rem auto;
+  display: grid;
+  grid-template-columns: 1fr; /* Defaults to single column for compact glass devices */
+  gap: 3rem;
+  padding: 0 2rem;
+  font-family: "Plus Jakarta Sans", -apple-system, sans-serif;
+  box-sizing: border-box;
+}
+
+/* Upgrades automatically into an elegant side-by-side architecture layout on desktop tracks */
+@media (min-width: 850px) {
+  .review-section-container-split {
+    grid-template-columns: 320px 1fr;
+  }
+}
+
+/* ================= LEFT PANEL CONFIGURATIONS ================= */
+.review-left-summary-panel {
+  width: 100%;
+}
+
+.sticky-summary-box-card {
+  position: -webkit-sticky;
+  position: sticky;
+  top: 100px; /* Aligns neatly under your sticky top navigation panel components */
+  background-color: #ffffff;
+  border: 1px solid #e2e8f0;
+  border-radius: 12px;
+  padding: 2rem 1.5rem;
+  box-shadow: 0 1px 3px rgba(15, 23, 42, 0.01);
+  box-sizing: border-box;
+  text-align: center;
+}
+
+.panel-micro-tag-header {
+  font-size: 0.688rem;
+  font-weight: 800;
+  letter-spacing: 0.08em;
+  color: #94a3b8;
+  display: block;
+  margin-bottom: 0.5rem;
+}
+
+.big-rating-score-num {
+  font-size: 4rem;
+  font-weight: 900;
+  color: #0f172a;
+  margin: 0;
+  line-height: 1;
+  letter-spacing: -0.04em;
+}
+
+.stars-row-center {
+  display: flex;
+  justify-content: center;
+  margin: 0.5rem 0;
+}
+
+.total-reviews-count-text {
+  font-size: 0.75rem;
+  font-weight: 600;
+  color: #64748b;
+  margin: 0 0 1.5rem 0;
+}
+
+/* Distribution Metric Tally Progress Bars */
+.rating-distribution-bars-column {
+  display: flex;
+  flex-direction: column;
+  gap: 0.5rem;
+  margin-bottom: 2rem;
+}
+
+.distribution-line-row {
+  display: flex;
+  align-items: center;
+  gap: 0.75rem;
+  font-size: 0.813rem;
+  font-weight: 600;
+  color: #475569;
+}
+
+.dist-star-label {
+  min-width: 25px;
+  text-align: right;
+}
+
+.dist-bar-track-bg {
+  flex: 1;
+  height: 5px;
+  background-color: #f1f5f9;
+  border-radius: 10px;
+  position: relative;
+  overflow: hidden;
+}
+
+.dist-bar-fill-indicator {
+  position: absolute;
+  left: 0;
+  top: 0;
+  height: 100%;
+  background-color: #f59e0b; /* Vibrant amber configuration metrics */
+  border-radius: 10px;
+  transition: width 0.3s ease;
+}
+
+.dist-count-readout {
+  min-width: 15px;
+  text-align: left;
+  color: #94a3b8;
+}
+
+.write-review-trigger-btn-override {
+  width: 100%;
+  background-color: #ffffff !important;
+  border: 1px solid #cbd5e1 !important;
+  color: #475569 !important;
+  box-shadow: none !important;
+  padding: 0.75rem !important;
+  font-size: 0.813rem !important;
+}
+
+.write-review-trigger-btn-override:hover {
+  background-color: #f8fafc !important;
+  border-color: #94a3b8 !important;
+  color: #0f172a !important;
+}
+
+/* ================= RIGHT PANEL FEED AND INTERFACE CONFIGURATIONS ================= */
+.review-right-feed-panel {
+  display: flex;
+  flex-direction: column;
+  gap: 1.5rem;
+}
+
+/* Accordion Input Forms Drawer */
+.review-form-collapsible-drawer {
+  max-height: 0;
+  overflow: hidden;
+  opacity: 0;
+  transition: max-height 0.25s cubic-bezier(0.16, 1, 0.3, 1), opacity 0.2s ease;
+}
+
+.review-form-collapsible-drawer.is-open {
+  max-height: 600px;
+  opacity: 1;
+  border-bottom: 1px solid #e2e8f0;
+  padding-bottom: 1.5rem;
+}
+
+.review-input-form-box h3 {
+  font-size: 1rem;
+  font-weight: 800;
+  margin: 0 0 1.25rem 0;
+  color: #0f172a;
+}
+
+.form-double-grid-row {
+  display: grid;
+  grid-template-columns: 1fr;
+  gap: 1rem;
+}
+
+@media (min-width: 500px) {
+  .form-double-grid-row {
+    grid-template-columns: 1fr 1fr;
+  }
+}
+
+.form-input-stack-cell {
+  display: flex;
+  flex-direction: column;
+  gap: 0.375rem;
+}
+
+.form-input-stack-cell label {
+  font-size: 0.75rem;
+  font-weight: 700;
+  color: #475569;
+  text-transform: uppercase;
+}
+
+.review-text-field,
+.review-select-dropdown,
+.review-textarea-field {
+  padding: 0.65rem 0.875rem;
+  border: 1px solid #e2e8f0;
+  background-color: #f8fafc;
+  border-radius: 8px;
+  font-size: 0.875rem;
+  color: #0f172a;
+  outline: none;
+  font-family: inherit;
+  width: 100%;
+  box-sizing: border-box;
+}
+
+.review-text-field:focus,
+.review-select-dropdown:focus,
+.review-textarea-field:focus {
+  border-color: #1a8a50;
+  background-color: #ffffff;
+  box-shadow: 0 0 0 3px rgba(26, 138, 80, 0.05);
+}
+
+.review-textarea-field {
+  resize: none;
+}
+
+.submit-fresh-review-btn {
+  background-color: #1a8a50 !important;
+  color: #ffffff !important;
+  font-weight: 700 !important;
+  padding: 0.65rem 1.25rem !important;
+  border: none !important;
+  border-radius: 8px !important;
+  font-size: 0.813rem !important;
+  cursor: pointer;
+  width: -webkit-fit-content;
+  width: -moz-fit-content;
+  width: fit-content;
+}
+
+.submit-fresh-review-btn:hover {
+  background-color: #15703f !important;
+}
+
+/* Client Feedback Reviews Feed Logs */
+.feed-header-heading {
+  font-size: 0.813rem;
+  font-weight: 800;
+  text-transform: uppercase;
+  letter-spacing: 0.05em;
+  color: #64748b;
+  margin: 0 0 1rem 0;
+}
+
+.reviews-cards-container-loop {
+  display: flex;
+  flex-direction: column;
+  gap: 1rem;
+}
+
+.customer-review-feed-card {
+  background-color: #ffffff;
+  border: 1px solid #e2e8f0;
+  border-radius: 12px;
+  padding: 1.25rem;
+  box-shadow: 0 1px 2px rgba(0,0,0,0.005);
+}
+
+.card-author-meta-strip {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  margin-bottom: 0.75rem;
+}
+
+.author-badge-flex {
+  display: flex;
+  align-items: center;
+  gap: 0.75rem;
+}
+
+.author-avatar-initial {
+  width: 2.25rem;
+  height: 2.25rem;
+  background-color: rgba(26, 138, 80, 0.06);
+  color: #1a8a50;
+  font-weight: 800;
+  font-size: 0.875rem;
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.author-name-text-bold {
+  margin: 0;
+  font-size: 0.875rem;
+  font-weight: 700;
+  color: #0f172a;
+}
+
+.review-timestamp-date {
+  font-size: 0.75rem;
+  color: #94a3b8;
+  font-weight: 500;
+}
+
+.stars-row-flex {
+  display: flex;
+}
+
+.customer-comment-body-paragraph {
+  margin: 0;
+  font-size: 0.875rem;
+  color: #475569;
+  line-height: 1.6;
+  font-weight: 500;
+}
+
+.empty-reviews-fallback-block {
+  text-align: center;
+  padding: 4rem 1rem;
+  border: 2px dashed #e2e8f0;
+  border-radius: 12px;
+  color: #94a3b8;
+  font-size: 0.875rem;
+  font-weight: 500;
+}

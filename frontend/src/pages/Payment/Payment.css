@@ -1,0 +1,323 @@
+/* ================= GLOBAL CUSTOM VARIABLE DESIGN PALETTE ================= */
+:root {
+  --nk-pink: #1a8a50;          /* Brand Signature Green Theme Color */
+  --nk-pink-hover: #15703f;    /* Hover State Deep Green Accent */
+  --nk-green: #0f6e56;         /* Secondary Forest Green Layout Details */
+  --nk-dark: #001a0e;          /* Rich Dark Text Charcoal Branding Black */
+  --nk-text: #111111;          /* Core Body Typography Copy Color */
+  --nk-muted: #5a7a65;         /* Soft Sage/Muted Text Metadata Coordinates */
+  --nk-white: #ffffff;         /* Pristine Panel Canvas White background */
+  --nk-border: #d4ede0;        /* Micro Border Track Dividers Outline Gray-Green */
+  --nk-bg-gray: #f0f9f4;       /* Soft Backing Pane Fills Tone */
+  --nk-font: "Plus Jakarta Sans", sans-serif;
+}
+
+/* Base Page Core Framework Container settings */
+.nykaa-checkout-page {
+  max-width: 1240px;
+  margin: 2rem auto;
+  padding: 0 1rem;
+  font-family: var(--nk-font);
+  color: var(--nk-text);
+  box-sizing: border-box;
+  background-color: var(--nk-white);
+}
+
+/* ================= STEP TRAIL TIMELINE STEPS ELEMENT PROGRESS BAR ================= */
+.checkout-step-progress-container {
+  width: 100%;
+  max-width: 820px;
+  margin: 0 auto 3.5rem auto;
+  padding: 0 1rem;
+  box-sizing: border-box;
+}
+
+.step-progress-upper-tag {
+  display: block;
+  font-size: 0.813rem;
+  font-weight: 700;
+  color: var(--nk-muted);
+  letter-spacing: 0.06em;
+  margin-bottom: 1.25rem;
+  text-transform: uppercase;
+}
+
+.minimal-stepper-row {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 100%;
+}
+
+.progress-step-node {
+  display: flex;
+  align-items: center;
+  gap: 0.75rem;
+  flex-shrink: 0;
+}
+
+.progress-node-circle {
+  width: 2.25rem;
+  height: 2.25rem;
+  border-radius: 50%;
+  background-color: var(--nk-white);
+  border: 2px solid #cbd5e1;
+  color: #64748b;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 0.875rem;
+  font-weight: 700;
+  transition: all 0.35s ease;
+  box-sizing: border-box;
+}
+
+.progress-node-label {
+  font-size: 1rem;
+  font-weight: 700;
+  color: #64748b;
+  transition: color 0.3s ease;
+  white-space: nowrap;
+}
+
+/* Complete Stage Status Style rules indicators fills */
+.progress-step-node.is-complete .progress-node-circle {
+  background-color: var(--nk-pink);
+  border-color: var(--nk-pink);
+  color: var(--nk-white);
+}
+
+.progress-step-node.is-complete .progress-node-label {
+  color: #000000;
+}
+
+/* Active Focus Stage Status Style outer ring parameters offsets */
+.progress-step-node.is-active .progress-node-circle {
+  border-color: var(--nk-pink);
+  color: var(--nk-pink);
+  background-color: var(--nk-white);
+  box-shadow: 0 0 0 1px var(--nk-pink);
+}
+
+.progress-step-node.is-active .progress-node-label {
+  color: var(--nk-pink);
+}
+
+/* Static horizontal alignment connector trail pipelines bridges lines */
+.progress-bridge-line {
+  flex: 1;
+  max-width: 120px;
+  height: 2px;
+  background-color: #cbd5e1;
+  margin: 0 1rem;
+  transition: background-color 0.4s ease;
+}
+
+.progress-bridge-line.filled {
+  background-color: var(--nk-pink);
+}
+
+/* ================= MAIN DUAL CONFIGURATION FLUID COLUMN SPITS GRID ================= */
+.checkout-main-grid {
+  display: flex;
+  flex-direction: column;
+  gap: 2.5rem;
+  width: 100%;
+}
+
+.checkout-left-workspace {
+  flex: 1.6;
+  width: 100%;
+}
+
+.checkout-right-sticky-sidebar {
+  flex: 1;
+  width: 100%;
+  display: flex;
+  flex-direction: column;
+  gap: 1rem;
+}
+
+/* ================= RIGHT ORDER SUMMARY ACCORDION SIDEBAR STYLINGS ================= */
+.nykaa-sidebar-accordion-card {
+  background-color: var(--nk-white);
+  border: 1px solid var(--nk-border);
+  border-radius: 0.375rem;
+  overflow: hidden;
+  box-sizing: border-box;
+}
+
+.nykaa-sidebar-accordion-card.spacing-top {
+  margin-top: 0; /* Reset explicitly as layout gap property driving spacing limits natively */
+}
+
+.accordion-trigger-header {
+  padding: 1.25rem 1.5rem;
+  display: flex;
+  align-items: center;
+  background-color: var(--nk-white);
+  user-select: none;
+}
+
+.accordion-main-title {
+  font-size: 1rem;
+  font-weight: 700;
+  color: var(--nk-dark);
+  flex: 1;
+}
+
+.accordion-right-value-readout {
+  font-size: 0.875rem;
+  color: #495864;
+  font-weight: 600;
+}
+
+.accordion-right-value-readout.bold-price {
+  color: var(--nk-dark);
+  font-weight: 800;
+  font-size: 1rem;
+}
+
+.accordion-right-value-readout.truncate-text {
+  max-width: 180px;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+
+.accordion-expandable-content-body {
+  padding: 0 1.5rem 1.25rem 1.5rem;
+  background-color: var(--nk-white);
+  border-top: 1px solid var(--nk-border);
+  display: flex;
+  flex-direction: column;
+  gap: 0.875rem;
+}
+
+.accordion-micro-item-row {
+  display: flex;
+  justify-content: space-between;
+  align-items: baseline;
+  font-size: 0.875rem;
+}
+
+.micro-item-text-stack {
+  display: flex;
+  flex-direction: column;
+  gap: 0.125rem;
+}
+
+.micro-title-bold {
+  font-weight: 700;
+  color: #1e293b;
+}
+
+.micro-qty-counter {
+  font-size: 0.75rem;
+  color: var(--nk-muted);
+  font-weight: 500;
+}
+
+.micro-item-price-tally {
+  font-weight: 700;
+  color: var(--nk-dark);
+}
+
+.invoice-metric-line-row {
+  display: flex;
+  justify-content: space-between;
+  font-size: 0.938rem;
+  color: #475569;
+  font-weight: 500;
+}
+
+.free-shipping-text {
+  color: var(--nk-green);
+  font-weight: 700;
+}
+
+/* Live Green Savings Badge Banner readout strip element */
+.savings-green-banner-strip {
+  background-color: rgba(15, 110, 86, 0.06);
+  color: var(--nk-green);
+  font-size: 0.813rem;
+  font-weight: 700;
+  padding: 0.625rem 1rem;
+  border-radius: 0.25rem;
+  text-align: center;
+  margin-top: 0.375rem;
+  letter-spacing: 0.01em;
+}
+
+/* Base Verification Guarantee Box footer indicators panels definitions element */
+.nykaa-guarantee-footer-strip-box {
+  display: flex;
+  gap: 0.75rem;
+  padding: 1.25rem 1rem;
+  background-color: var(--nk-bg-gray);
+  border: 1px solid var(--nk-border);
+  border-radius: 0.375rem;
+  margin-top: 0.5rem;
+  align-items: center;
+  box-sizing: border-box;
+}
+
+.secure-badge-vector-icon {
+  font-size: 1.15rem;
+  color: var(--nk-muted);
+}
+
+.nykaa-guarantee-footer-strip-box p {
+  font-size: 0.75rem;
+  color: #475569;
+  font-weight: 600;
+  line-height: 1.4;
+  margin: 0;
+}
+
+/* Empty data fallbacks copy placeholders handlers descriptions rules setting */
+.empty-sidebar-bag-notice {
+  font-size: 0.875rem;
+  color: var(--nk-muted);
+  text-align: center;
+  margin: 0.5rem 0 0 0;
+  font-weight: 500;
+}
+
+/* Global entry keyframe fade animations mapping injection definitions */
+.animated-entry {
+  animation: nkPaneSlideUp 0.35s cubic-bezier(0.16, 1, 0.3, 1) forwards;
+}
+
+@keyframes nkPaneSlideUp {
+  from {
+    opacity: 0;
+    transform: translateY(6px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+/* ================= DYNAMIC SCREEN BREAKPOINTS HOOKS RESPONSIVENESS ================= */
+
+@media (max-width: 580px) {
+  .progress-bridge-line {
+    margin: 0 0.5rem;
+  }
+  .progress-node-label {
+    display: none; /* Collapses textual strings labels on compact mobile screens */
+  }
+}
+
+@media (min-width: 992px) {
+  .checkout-main-grid {
+    flex-direction: row;
+    align-items: flex-start;
+  }
+  .checkout-right-sticky-sidebar {
+    position: sticky;
+    top: 2rem; /* Latches sidebar cleanly when scrolling across tall screens components tracks */
+  }
+}

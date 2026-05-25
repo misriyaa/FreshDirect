@@ -1,0 +1,234 @@
+:root {
+  --lm-green: #1b5e20;
+  --lm-green-hover: #144517;
+  --lm-dark: #111111;
+  --lm-muted: #64748b;
+  --lm-white: #ffffff;
+  --lm-border: #e2e8f0;
+  --lm-font: "Plus Jakarta Sans", sans-serif;
+}
+
+/* 1. Blur Backdrop Background Cover Layer */
+.login-modal-overlay {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100vw;
+  height: 100vh;
+  background-color: rgba(10, 26, 14, 0.4);
+  backdrop-filter: blur(5px);
+  -webkit-backdrop-filter: blur(5px);
+  z-index: 99999; /* Higher stack positioning than navigation layers */
+}
+
+/* 2. Compact Screen-Centered Modal Card Body Layout */
+.login-modal-box {
+  position: fixed;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  width: 90%;
+  max-width: 400px; /* Reduced dimension footprints matching simple forms input panels */
+  background-color: var(--lm-white);
+  border-radius: 1.25rem;
+  padding: 2.25rem 2rem;
+  box-shadow: 0 20px 40px rgba(0, 0, 0, 0.12);
+  z-index: 100000;
+  box-sizing: border-box;
+  font-family: var(--lm-font);
+}
+
+/* 3. Floating Absolute Close Cross Button Trigger */
+.login-modal-close-btn {
+  position: absolute;
+  top: 1.25rem;
+  right: 1.25rem;
+  background: transparent;
+  border: none;
+  color: var(--lm-muted);
+  cursor: pointer;
+  padding: 0.25rem;
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  transition: all 0.2s ease;
+}
+
+.login-modal-close-btn:hover {
+  background-color: #f1f5f9;
+  color: var(--lm-dark);
+}
+
+/* Header Text Blocks */
+.login-modal-logo-row {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 0.5rem;
+  font-size: 1.1rem;
+  font-weight: 700;
+  color: var(--lm-dark);
+  margin-bottom: 1rem;
+}
+
+.login-modal-logo {
+  width: 1.5rem;
+  height: 1.5rem;
+}
+
+.login-modal-title {
+  font-size: 1.5rem;
+  font-weight: 800;
+  text-align: center;
+  color: var(--lm-dark);
+  margin: 0 0 0.375rem 0;
+  letter-spacing: -0.01em;
+}
+
+.login-modal-subtitle {
+  font-size: 0.813rem;
+  color: var(--lm-muted);
+  text-align: center;
+  line-height: 1.4;
+  margin: 0 0 1.75rem 0;
+}
+
+/* Inner Input Rows Formatting Layout Rules */
+.login-modal-form {
+  display: flex;
+  flex-direction: column;
+  gap: 1.15rem;
+}
+
+.modal-input-group {
+  display: flex;
+  flex-direction: column;
+  gap: 0.375rem;
+}
+
+.modal-input-group label {
+  font-size: 0.75rem;
+  font-weight: 700;
+  color: #475569;
+  text-transform: uppercase;
+  letter-spacing: 0.03em;
+}
+
+.modal-password-label-row {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.modal-forgot-link {
+  font-size: 0.75rem;
+  font-weight: 600;
+  color: var(--lm-green);
+  text-decoration: none;
+}
+
+.modal-input-group input,
+.modal-password-field-wrapper input {
+  width: 100%;
+  padding: 0.75rem 1rem;
+  border: 1px solid var(--lm-border);
+  border-radius: 0.5rem;
+  font-size: 0.875rem;
+  color: var(--lm-dark);
+  outline: none;
+  font-family: var(--lm-font);
+  background-color: #f8fafc;
+  transition: all 0.2s ease;
+  box-sizing: border-box;
+}
+
+.modal-input-group input:focus,
+.modal-password-field-wrapper input:focus {
+  border-color: var(--lm-green);
+  background-color: var(--lm-white);
+  box-shadow: 0 0 0 4px rgba(27, 94, 32, 0.06);
+}
+
+/* Password Eye Hide-and-Show layer placements */
+.modal-password-field-wrapper {
+  position: relative;
+  display: flex;
+  align-items: center;
+  width: 100%;
+}
+
+.modal-password-eye-btn {
+  position: absolute;
+  right: 0.875rem;
+  background: transparent;
+  border: none;
+  color: var(--lm-muted);
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  padding: 0;
+}
+
+.modal-password-eye-btn:hover {
+  color: var(--lm-green);
+}
+
+/* Submission action buttons dimensions controllers */
+.login-modal-submit-btn {
+  width: 100%;
+  background-color: var(--lm-green);
+  color: var(--lm-white);
+  border: none;
+  padding: 0.875rem 1.25rem;
+  font-size: 0.875rem;
+  font-weight: 700;
+  border-radius: 0.5rem;
+  cursor: pointer;
+  margin-top: 0.5rem;
+  box-shadow: 0 4px 12px rgba(27, 94, 32, 0.12);
+  font-family: var(--lm-font);
+  transition: background-color 0.15s ease;
+}
+
+.login-modal-submit-btn:hover {
+  background-color: var(--lm-green-hover);
+}
+
+/* Modals Bottom Information Card Redirect Footer links */
+.login-modal-footer {
+  margin-top: 1.5rem;
+  text-align: center;
+}
+
+.login-modal-footer p {
+  font-size: 0.813rem;
+  color: var(--lm-muted);
+  margin: 0;
+}
+
+.modal-register-hook {
+  color: var(--lm-green);
+  font-weight: 700;
+  cursor: pointer;
+}
+
+.modal-register-hook:hover {
+  text-decoration: underline;
+}
+
+/* Smooth entry animation for the dynamic Name field block */
+.signup-animated-field {
+  animation: modalFieldFadeIn 0.3s cubic-bezier(0.16, 1, 0.3, 1) forwards;
+}
+
+@keyframes modalFieldFadeIn {
+  from {
+    opacity: 0;
+    transform: translateY(-8px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
