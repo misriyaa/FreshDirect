@@ -20,7 +20,12 @@ import { seedDatabase } from "./config/dbSeeder.js";
 const app = express();
 
 // ================= MIDDLEWARES =================
-app.use(cors());
+app.use(
+  cors({
+    origin: "https://fresh-direct-iota.vercel.app",
+    credentials: true,
+  })
+);
 app.use(express.json());
 app.use(cookieParser());
 app.use("/uploads", express.static("uploads"));
