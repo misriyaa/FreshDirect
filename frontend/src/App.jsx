@@ -18,25 +18,14 @@ import SellerLayout from "./pages/Seller/SellerLayout";
 
 const App = () => {
   const isSellerPath = useLocation().pathname.includes("seller");
+  
+  // 🌟 Clean data binding: Only read states straight from the Context Engine
   const { isSeller, user } = useAppContext();
   const [isCartOpen, setIsCartOpen] = useState(false);
   const [isLoginOpen, setIsLoginOpen] = useState(false);
 
-  // 🌟 ADJUSTED SENSITIVITY CHECK: Verifies context state first, drops immediately if context is missing a user
-  const checkLocalStorageAuth = () => {
-    if (!user) return false; // If context user is null (logged out), auth is strictly false
-    try {
-      const storedUser = localStorage.getItem("user");
-      if (!storedUser) return false;
-      const parsedUser = JSON.parse(storedUser);
-      return parsedUser.role === "seller";
-    } catch (e) {
-      return false;
-    }
-  };
-
-  // True access token verification matrix
-  const hasSellerPrivileges = isSeller && checkLocalStorageAuth();
+  // A user has active seller access ONLY if context says so AND a user state exists
+  const hasSellerAccess = isSeller && user && user.role === "seller";
 
   return (
     <div>
@@ -56,24 +45,24 @@ const App = () => {
           <Route path="/checkout" element={<Payment />} />
           <Route path="/my-orders" element={<MyOrders />} />
 
-          {/* ================= FIXED SELLER PATH SYSTEM ================= */}
+          {/* ================= FIXED SELLER ACCESS PIPELINE ================= */}
           
-          {/* Base Entry point */}
+          {/* Base Entry Point */}
           <Route 
             path="/seller" 
-            element={hasSellerPrivileges ? <Navigate to="/seller/dashboard" replace /> : <Navigate to="/seller/login" replace />} 
+            element={hasSellerAccess ? <Navigate to="/seller/dashboard" replace /> : <Navigate to="/seller/login" replace />} 
           />
           
-          {/* Login Gate Route */}
+          {/* Isolated Login Gate Route */}
           <Route 
             path="/seller/login" 
-            element={hasSellerPrivileges ? <Navigate to="/seller/dashboard" replace /> : <SellerLogin />} 
+            element={hasSellerAccess ? <Navigate to="/seller/dashboard" replace /> : <SellerLogin />} 
           />
           
-          {/* Protected Area Layout Router */}
+          {/* Back-Office Dashboard Workspace Area */}
           <Route 
             path="/seller/*" 
-            element={hasSellerPrivileges ? <SellerLayout /> : <Navigate to="/seller/login" replace />} 
+            element={hasSellerAccess ? <SellerLayout /> : <Navigate to="/seller/login" replace />} 
           />
         </Routes>
       </div>
