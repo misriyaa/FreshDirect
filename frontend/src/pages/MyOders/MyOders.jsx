@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from "react";
 import { useAppContext } from "../../context/AppContext";
-import "./MyOders.css";
+import "./MyOrders.css";
 
 function MyOrders() {
   const { navigate, user } = useAppContext();
@@ -146,7 +146,17 @@ function MyOrders() {
                             <span>Size: {item.size || "M"}</span>
                             <span>Qty: {item.quantity}</span>
                             <span className="oh-item-price">
-                              Price ${item.price?.toFixed(2)}
+                              ₹{item.price?.toFixed(2)}
+                            </span>
+                          </div>
+                          {/* Inline status row — visible only on mobile */}
+                          <div className="oh-item-inline-meta">
+                            <span className={`oh-status-value ${getStatusClass(order.status)}`}>
+                              {order.status}
+                            </span>
+                            <span className="oh-inline-dot">·</span>
+                            <span className="oh-inline-delivery">
+                              {formatDate(order.expectedDelivery || order.updatedAt)}
                             </span>
                           </div>
                         </div>
