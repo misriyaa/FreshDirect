@@ -10,43 +10,30 @@ const Orders = () => {
   }, []);
 
   const fetchOrders = async () => {
-  console.log("1. fetchOrders loop has triggered successfully 🚀");
+    try {
+      const baseUrl = import.meta.env.VITE_BACKEND_URL || "http://localhost:5000";
+      const response = await fetch(`${baseUrl}/api/orders`);
+      
+      if (!response.ok) {
+        throw new Error(`HTTP network channel rejected with code: ${response.status}`);
+      }
 
-  try {
-    // Determine base URL dynamically, with an absolute fallback to development port layouts
-    const baseUrl = import.meta.env.VITE_BACKEND_URL || "http://localhost:5000";
-    const targetUrl = `${baseUrl}/api/orders`;
-    
-    console.log(`2. Dispatching async network query target to URL: "${targetUrl}"`);
+      const data = await response.json();
 
-    const response = await fetch(targetUrl);
-    
-    console.log("3. Server network channel responded with HTTP Status Code:", response.status);
-
-    if (!response.ok) {
-      throw new Error(`HTTP network channel rejected with code: ${response.status}`);
+      if (data.success) {
+        setOrderList(data.orders || []);
+      }
+    } catch (error) {
+      console.error("Pipeline failure reading order registries:", error);
+      toast.error("Failed to connect to the order fulfillment data cluster.");
     }
-
-    const data = await response.json();
-    console.log("4. Parsed JSON payload payload returned from cluster:", data);
-
-    if (data.success) {
-      setOrderList(data.orders || []);
-      console.log(`5. State sync complete. Loaded array footprint contains ${data.orders?.length || 0} items.`);
-    } else {
-      console.warn("Backend responded with success: false. Tracking message context:", data.message);
-    }
-  } catch (error) {
-    // This block will capture network timeouts, structural failures, or domain blockages
-    console.error("❌ CRITICAL DISPATCH BREAKDOWN EXCEPTION:", error);
-    toast.error("Network communication pipeline failure. Check development console tracing updates.");
-  }
-};
+  };
 
   const handleStatusChange = async (orderId, newStatus) => {
     try {
+      const baseUrl = import.meta.env.VITE_BACKEND_URL || "http://localhost:5000";
       const response = await fetch(
-        `${import.meta.env.VITE_BACKEND_URL}/api/orders/status/${orderId}`,
+        `${baseUrl}/api/orders/status/${orderId}`,
         {
           method: "PUT",
           headers: {
@@ -67,7 +54,7 @@ const Orders = () => {
         toast.success(`Order status shifted cleanly to ${newStatus}`);
       }
     } catch (error) {
-      console.error(error);
+      console.error("Logistics routing exception:", error);
       toast.error("Failed to re-route logistics status.");
     }
   };
@@ -76,16 +63,18 @@ const Orders = () => {
     <div className="flex-1 py-6 flex flex-col justify-between bg-[#fafbfc]">
       <div className="w-full bg-white p-6 md:p-10 rounded-xl border border-[#e2e8f0] shadow-sm max-w-5xl box-border mx-auto">
         
+        {/* Section Header */}
         <div className="mb-8">
           <h2 className="text-xl font-bold text-[#0f172a] tracking-tight m-0 mb-1">Fulfillment Operations Hub</h2>
           <p className="text-xs text-[#64748b] m-0">Monitor real-time incoming customer orders, manage destination logistics, and update pipeline delivery actions.</p>
         </div>
 
+        {/* Orders Card Stack */}
         <div className="space-y-4">
           {orderList.length > 0 ? (
             orderList.map((order) => (
               <div 
-                key={order._id} // 🌟 FIXED: Uses MongoDB unique hash index key
+                key={order._id} 
                 className="flex flex-col md:grid md:grid-cols-[1.5fr_1.2fr_0.8fr_1.2fr] md:items-center gap-6 p-5 rounded-xl border border-[#e2e8f0] bg-white hover:border-[#1a8a50]/30 transition-all duration-200 shadow-sm"
               >
                 {/* Item Details Column */}
@@ -94,7 +83,6 @@ const Orders = () => {
                     <img className="w-full h-full object-contain opacity-70" src={boxIcon} alt="boxIcon" />
                   </div>
                   <div className="flex flex-col space-y-1">
-                    {/* 🌟 FIXED: Uses backend string tracking mappings */}
                     <span className="text-xs font-mono font-bold text-[#94a3b8] tracking-wider">
                       ID: {order.orderId || order._id.slice(-6).toUpperCase()}
                     </span>
@@ -130,16 +118,14 @@ const Orders = () => {
                 {/* Payment Summary Amount Column */}
                 <div className="flex flex-col justify-center">
                   <span className="text-[10px] font-bold text-[#94a3b8] tracking-wider uppercase mb-0.5">Total Revenue</span>
-                  {/* 🌟 FIXED: Maps to your schema variable property name 'total' */}
-                  <p className="font-extrabold text-base text-[#0f172a] m-0">₹{order.total || order.subtotal}</p>
+                  <p className="font-extrabold text-base text-[#0f172a] m-0">₹{order.total || order.subtotal || 0}</p>
                 </div>
 
                 {/* Status Manager & Meta Parameters Column */}
                 <div className="flex flex-col sm:flex-row md:flex-col gap-4 md:gap-2 justify-between items-start md:items-stretch text-xs text-[#64748b] bg-[#f8fafc] md:bg-transparent p-3 md:p-0 rounded-lg">
                   <div className="space-y-1 font-medium">
-                    {/* 🌟 FIXED: Maps directly onto your schema property 'paymentMethod' */}
                     <p className="m-0">Method: <strong className="text-[#334155]">{order.paymentMethod || "Online Stripe"}</strong></p>
-                    <p className="m-0">Date: <span className="text-[#334155]">{order.date || new Date(order.createdAt).toLocaleDateString()}</span></p>
+                    <p className="m-0">Date: <span className="text-[#334155]">{order.date || new Date(order.createdAt).toLocaleDateString('en-IN')}</span></p>
                     <p className="m-0">
                       Payment:{" "}
                       <span className={`font-bold ${order.isPaid ? 'text-[#1a8a50]' : 'text-amber-600'}`}>
