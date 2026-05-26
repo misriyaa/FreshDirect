@@ -10,17 +10,36 @@ const Orders = () => {
   }, []);
 
   const fetchOrders = async () => {
-  try {
-    const response = await fetch(`${import.meta.env.VITE_BACKEND_URL}/api/orders`);
-    const data = await response.json();
+  console.log("1. fetchOrders loop has triggered successfully 🚀");
 
-    console.log("=== BACKEND ORDERS RESPONSE VALIDATION ===", data); // 🌟 ADD THIS TEMPORARILY
+  try {
+    // Determine base URL dynamically, with an absolute fallback to development port layouts
+    const baseUrl = import.meta.env.VITE_BACKEND_URL || "http://localhost:5000";
+    const targetUrl = `${baseUrl}/api/orders`;
+    
+    console.log(`2. Dispatching async network query target to URL: "${targetUrl}"`);
+
+    const response = await fetch(targetUrl);
+    
+    console.log("3. Server network channel responded with HTTP Status Code:", response.status);
+
+    if (!response.ok) {
+      throw new Error(`HTTP network channel rejected with code: ${response.status}`);
+    }
+
+    const data = await response.json();
+    console.log("4. Parsed JSON payload payload returned from cluster:", data);
 
     if (data.success) {
       setOrderList(data.orders || []);
+      console.log(`5. State sync complete. Loaded array footprint contains ${data.orders?.length || 0} items.`);
+    } else {
+      console.warn("Backend responded with success: false. Tracking message context:", data.message);
     }
   } catch (error) {
-    console.error("Pipeline failure reading order registries:", error);
+    // This block will capture network timeouts, structural failures, or domain blockages
+    console.error("❌ CRITICAL DISPATCH BREAKDOWN EXCEPTION:", error);
+    toast.error("Network communication pipeline failure. Check development console tracing updates.");
   }
 };
 
