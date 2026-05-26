@@ -1,396 +1,209 @@
-import React, {
-  useEffect,
-  useState,
-} from "react";
-
-import { useAppContext }
-from "../../context/AppContext";
-
-import "./MyOders.css";
+import React, { useEffect, useState } from "react";
+import { useAppContext } from "../../context/AppContext";
+import "./MyOrders.css";
 
 function MyOrders() {
+  const { navigate, user } = useAppContext();
+  const [orders, setOrders] = useState([]);
+  const [activeTab, setActiveTab] = useState("All Order");
+  const [fromDate, setFromDate] = useState("");
+  const [toDate, setToDate] = useState("");
 
-  const {
-    navigate,
-    user,
-  } = useAppContext();
-
-  const [orders, setOrders] =
-    useState([]);
+  const tabs = ["All Order", "Summary", "Completed", "Cancelled"];
 
   useEffect(() => {
-
     fetchOrders();
-
   }, []);
 
-  const fetchOrders =
-    async () => {
-
-      try {
-
-        const response =
-          await fetch(
-            `${import.meta.env.VITE_BACKEND_URL}/api/orders?email=${user?.email}`
-          );
-
-        const data =
-          await response.json();
-
-        if (data.success) {
-
-          setOrders(data.orders);
-
-        }
-
-      } catch (error) {
-
-        console.log(error);
-
+  const fetchOrders = async () => {
+    try {
+      const response = await fetch(
+        `${import.meta.env.VITE_BACKEND_URL}/api/orders?email=${user?.email}`
+      );
+      const data = await response.json();
+      if (data.success) {
+        setOrders(data.orders);
       }
+    } catch (error) {
+      console.log(error);
+    }
+  };
 
-    };
+  const filteredOrders = orders.filter((order) => {
+    if (activeTab === "Completed") return order.status === "Delivered";
+    if (activeTab === "Cancelled") return order.status === "Cancelled";
+    return true;
+  });
+
+  const getStatusClass = (status) => {
+    switch (status?.toLowerCase()) {
+      case "delivered":
+        return "status-delivered";
+      case "cancelled":
+        return "status-cancelled";
+      case "processing":
+        return "status-processing";
+      case "shipped":
+        return "status-shipped";
+      default:
+        return "status-pending";
+    }
+  };
+
+  const formatDate = (dateStr) => {
+    if (!dateStr) return "—";
+    const d = new Date(dateStr);
+    return d.toLocaleDateString("en-IN", {
+      day: "numeric",
+      month: "long",
+      year: "numeric",
+    });
+  };
 
   return (
-
-    <div className="orders-dashboard-page">
-
-      <div className="orders-dashboard-container">
-
-        <div className="dashboard-title-header">
-
-          <h1>
-            My Orders
-          </h1>
-
-          <p>
-            Track your purchases and delivery updates
-          </p>
-
+    <div className="oh-page">
+      <div className="oh-container">
+        {/* Header */}
+        <div className="oh-header">
+          <h1 className="oh-title">Order History</h1>
         </div>
 
-        {orders.length > 0 ? (
-
-          <div className="orders-history-vertical-stack">
-
-            {orders.map((order) => (
-
-              <div
-                key={order._id}
-                className="order-history-card-item"
+        {/* Toolbar */}
+        <div className="oh-toolbar">
+          <div className="oh-tabs">
+            {tabs.map((tab) => (
+              <button
+                key={tab}
+                className={`oh-tab-btn ${activeTab === tab ? "oh-tab-active" : ""}`}
+                onClick={() => setActiveTab(tab)}
               >
-
-                {/* TOP BAR */}
-
-                <div className="order-card-top-summary-bar">
-
-                  <div className="meta-info-grid-cell">
-
-                    <span className="cell-label-tag">
-                      ORDER ID
-                    </span>
-
-                    <span className="cell-value-text code-font">
-                      #{order.orderId}
-                    </span>
-
-                  </div>
-
-                  <div className="meta-info-grid-cell">
-
-                    <span className="cell-label-tag">
-                      TOTAL
-                    </span>
-
-                    <span className="cell-value-text">
-                      ₹{order.total}
-                    </span>
-
-                  </div>
-
-                  <div className="meta-info-grid-cell">
-
-                    <span className="cell-label-tag">
-                      PAYMENT
-                    </span>
-
-                    <span className="payment-method-tag-indicator">
-                      {order.paymentMethod}
-                    </span>
-
-                  </div>
-
-                  <div className="meta-info-grid-cell">
-
-                    <span className="cell-label-tag">
-                      STATUS
-                    </span>
-
-                    <div className="status-indicator-badge-row">
-
-                      <span
-                        className={`status-pulse-dot ${order.status?.toLowerCase()}`}
-                      />
-
-                      <span className="status-text-highlight">
-                        {order.status}
-                      </span>
-
-                    </div>
-
-                  </div>
-
-                </div>
-
-                {/* BODY */}
-
-                <div className="order-card-inner-split-body">
-
-                  {/* LEFT */}
-
-                  <div className="order-items-left-column">
-
-                    <h3 className="column-subheading">
-                      Ordered Items
-                    </h3>
-
-                    <div className="items-list-embedded-rows-stack">
-
-                      {order.items?.map((item, index) => (
-
-                        <div
-                          key={index}
-                          className="embedded-item-micro-flex-card"
-                        >
-
-                          <img
-                            src={
-                              Array.isArray(item.image)
-                                ? item.image[0]
-                                : item.image
-                            }
-                            alt={item.name}
-                            className="micro-item-thumb-avatar"
-                          />
-
-                          <div className="micro-item-details-block">
-
-                            <h4>
-                              {item.name}
-                            </h4>
-
-                            <span className="micro-item-unit-pricing-math">
-
-                              {item.quantity} × ₹{item.price}
-
-                            </span>
-
-                            <span className="micro-item-row-total-price">
-
-                              ₹{item.quantity * item.price}
-
-                            </span>
-
-                          </div>
-
-                        </div>
-
-                      ))}
-
-                    </div>
-
-                  </div>
-
-                  {/* RIGHT */}
-
-                  <div className="order-receipts-right-column">
-
-                    <h3 className="column-subheading">
-                      Order Timeline
-                    </h3>
-
-                    <div className="vertical-timeline-tracker-container">
-
-                      <div className="timeline-step-node active-node">
-
-                        <div className="timeline-date-left">
-                          ✓
-                        </div>
-
-                        <div className="timeline-center-axis">
-
-                          <div className="timeline-checkpoint-dot" />
-
-                          <div className="timeline-connector-line" />
-
-                        </div>
-
-                        <div className="timeline-content-right">
-
-                          <h5>
-                            Order Placed
-                          </h5>
-
-                          <p>
-                            Your order has been successfully placed
-                          </p>
-
-                        </div>
-
-                      </div>
-
-                      <div
-                        className={`timeline-step-node ${
-                          order.status === "Processing" ||
-                          order.status === "Shipped" ||
-                          order.status === "Delivered"
-                            ? "active-node"
-                            : "inactive-node"
-                        }`}
-                      >
-
-                        <div className="timeline-date-left">
-                          ●
-                        </div>
-
-                        <div className="timeline-center-axis">
-
-                          <div className="timeline-checkpoint-dot" />
-
-                          <div className="timeline-connector-line" />
-
-                        </div>
-
-                        <div className="timeline-content-right">
-
-                          <h5>
-                            Processing
-                          </h5>
-
-                          <p>
-                            Seller is preparing your order
-                          </p>
-
-                        </div>
-
-                      </div>
-
-                      <div
-                        className={`timeline-step-node ${
-                          order.status === "Shipped" ||
-                          order.status === "Delivered"
-                            ? "active-node"
-                            : "inactive-node"
-                        }`}
-                      >
-
-                        <div className="timeline-date-left">
-                          ●
-                        </div>
-
-                        <div className="timeline-center-axis">
-
-                          <div className="timeline-checkpoint-dot" />
-
-                          <div className="timeline-connector-line" />
-
-                        </div>
-
-                        <div className="timeline-content-right">
-
-                          <h5>
-                            Shipped
-                          </h5>
-
-                          <p>
-                            Your package is on the way
-                          </p>
-
-                        </div>
-
-                      </div>
-
-                      <div
-                        className={`timeline-step-node ${
-                          order.status === "Delivered"
-                            ? "active-node"
-                            : "inactive-node"
-                        }`}
-                      >
-
-                        <div className="timeline-date-left">
-                          ●
-                        </div>
-
-                        <div className="timeline-center-axis">
-
-                          <div className="timeline-checkpoint-dot" />
-
-                        </div>
-
-                        <div className="timeline-content-right">
-
-                          <h5>
-                            Delivered
-                          </h5>
-
-                          <p>
-                            Package delivered successfully
-                          </p>
-
-                        </div>
-
-                      </div>
-
-                    </div>
-
-                  </div>
-
-                </div>
-
-              </div>
-
+                {tab}
+              </button>
             ))}
-
           </div>
 
+          <div className="oh-date-range">
+            <span className="oh-date-icon">📅</span>
+            <input
+              type="date"
+              className="oh-date-input"
+              value={fromDate}
+              onChange={(e) => setFromDate(e.target.value)}
+            />
+            <span className="oh-date-to">To</span>
+            <span className="oh-date-icon">📅</span>
+            <input
+              type="date"
+              className="oh-date-input"
+              value={toDate}
+              onChange={(e) => setToDate(e.target.value)}
+            />
+          </div>
+        </div>
+
+        {/* Orders */}
+        {filteredOrders.length > 0 ? (
+          <div className="oh-orders-list">
+            {filteredOrders.map((order) => (
+              <div key={order._id} className="oh-order-card">
+                {/* Card Head */}
+                <div className="oh-card-head">
+                  <div className="oh-card-meta">
+                    <span className="oh-order-id">Order : #{order.orderId}</span>
+                    <span className="oh-order-date">
+                      Order Payment : {formatDate(order.createdAt)}
+                    </span>
+                  </div>
+                  <div className="oh-card-actions">
+                    <button className="oh-btn-invoice">Show Invoice</button>
+                    <button
+                      className="oh-btn-buy"
+                      onClick={() => navigate("/all-products")}
+                    >
+                      Buy NOW
+                    </button>
+                  </div>
+                </div>
+
+                {/* Items */}
+                <div className="oh-items-list">
+                  {order.items?.map((item, index) => (
+                    <div key={index} className="oh-item-row">
+                      <div className="oh-item-left">
+                        <img
+                          src={
+                            Array.isArray(item.image)
+                              ? item.image[0]
+                              : item.image
+                          }
+                          alt={item.name}
+                          className="oh-item-img"
+                        />
+                        <div className="oh-item-info">
+                          <h4 className="oh-item-name">{item.name}</h4>
+                          <span className="oh-item-seller">By: {item.seller || "Seller"}</span>
+                          <div className="oh-item-specs">
+                            <span>Size: {item.size || "M"}</span>
+                            <span>Qty: {item.quantity}</span>
+                            <span className="oh-item-price">
+                              Price ${item.price?.toFixed(2)}
+                            </span>
+                          </div>
+                        </div>
+                      </div>
+
+                      <div className="oh-item-middle">
+                        <span className="oh-status-label">Status</span>
+                        <span className={`oh-status-value ${getStatusClass(order.status)}`}>
+                          {order.status}
+                        </span>
+                      </div>
+
+                      <div className="oh-item-right">
+                        <span className="oh-delivery-label">Delivery Expected by</span>
+                        <span className="oh-delivery-date">
+                          {formatDate(order.expectedDelivery || order.updatedAt)}
+                        </span>
+                      </div>
+                    </div>
+                  ))}
+                </div>
+
+                {/* Card Footer */}
+                <div className="oh-card-footer">
+                  <div className="oh-cancel-section">
+                    <button className="oh-cancel-btn">
+                      <span className="oh-cancel-x">✕</span>
+                      cancel order
+                    </button>
+                    <span className="oh-payment-status">
+                      Payment Is Succesfull
+                    </span>
+                  </div>
+                  <div className="oh-total">
+                    Total Price:{" "}
+                    <span className="oh-total-value">₹{order.total}</span>
+                  </div>
+                </div>
+              </div>
+            ))}
+          </div>
         ) : (
-
-          <div className="empty-orders-dashboard-fallback">
-
-            <span className="empty-dashboard-icon-illustration">
-              📦
-            </span>
-
-            <h2>
-              No Orders Yet
-            </h2>
-
-            <p>
-              Looks like you haven’t placed any orders yet.
-            </p>
-
+          <div className="oh-empty">
+            <span className="oh-empty-icon">📦</span>
+            <h2>No Orders Yet</h2>
+            <p>Looks like you haven't placed any orders yet.</p>
             <button
-              className="return-shop-cta-btn"
-              onClick={() =>
-                navigate("/all-products")
-              }
+              className="oh-shop-btn"
+              onClick={() => navigate("/all-products")}
             >
-
               Shop Now
-
             </button>
-
           </div>
-
         )}
-
       </div>
-
     </div>
-
   );
-
 }
 
 export default MyOrders;
