@@ -18,12 +18,13 @@ import SellerLayout from "./pages/Seller/SellerLayout";
 
 const App = () => {
   const isSellerPath = useLocation().pathname.includes("seller");
-  const { isSeller } = useAppContext();
+  const { isSeller, user } = useAppContext();
   const [isCartOpen, setIsCartOpen] = useState(false);
   const [isLoginOpen, setIsLoginOpen] = useState(false);
 
-  // 🌟 FAST-HYDRATION CHECK: Evaluates storage strings synchronously before render-blocking checks pass down
+  // 🌟 ADJUSTED SENSITIVITY CHECK: Verifies context state first, drops immediately if context is missing a user
   const checkLocalStorageAuth = () => {
+    if (!user) return false; // If context user is null (logged out), auth is strictly false
     try {
       const storedUser = localStorage.getItem("user");
       if (!storedUser) return false;
@@ -34,8 +35,8 @@ const App = () => {
     }
   };
 
-  // The active validation marker accepts state context OR fallback storage values
-  const hasSellerPrivileges = isSeller || checkLocalStorageAuth();
+  // True access token verification matrix
+  const hasSellerPrivileges = isSeller && checkLocalStorageAuth();
 
   return (
     <div>
@@ -55,21 +56,21 @@ const App = () => {
           <Route path="/checkout" element={<Payment />} />
           <Route path="/my-orders" element={<MyOrders />} />
 
-          {/* ================= FIXED CORE SELLER ROUTES SYSTEM ================= */}
+          {/* ================= FIXED SELLER PATH SYSTEM ================= */}
           
-          {/* Base Entry point: Redirects authenticated users or guests */}
+          {/* Base Entry point */}
           <Route 
             path="/seller" 
             element={hasSellerPrivileges ? <Navigate to="/seller/dashboard" replace /> : <Navigate to="/seller/login" replace />} 
           />
           
-          {/* Isolated Login Gate Route */}
+          {/* Login Gate Route */}
           <Route 
             path="/seller/login" 
             element={hasSellerPrivileges ? <Navigate to="/seller/dashboard" replace /> : <SellerLogin />} 
           />
           
-          {/* Wildcard Layout Route: Handled dynamically by Nesting Sub-Routes inside SellerLayout */}
+          {/* Protected Area Layout Router */}
           <Route 
             path="/seller/*" 
             element={hasSellerPrivileges ? <SellerLayout /> : <Navigate to="/seller/login" replace />} 
