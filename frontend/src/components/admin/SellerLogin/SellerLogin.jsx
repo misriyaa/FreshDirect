@@ -11,7 +11,7 @@ function SellerLogin() {
   const [isRegistering, setIsRegistering] = useState(false);
   const [shopName, setShopName] = useState("");
 
-  const handleSubmit = (e) => {
+  const handleSubmit = async (e) => {
     e.preventDefault();
 
     if (!email || !password || (isRegistering && !shopName)) {
@@ -19,20 +19,46 @@ function SellerLogin() {
       return;
     }
 
-    if (isRegistering) {
-      toast.success(`Welcome, ${shopName}! Your merchant portal is active.`);
-    } else {
-      toast.success("Welcome back to your Vendor Command Center.");
+    try {
+      const apiEndpoint = isRegistering 
+        ? "http://localhost:5000/api/seller/register" 
+        : "http://localhost:5000/api/seller/login";
+
+      const requestPayload = isRegistering 
+        ? { shopName, email, password } 
+        : { email, password };
+
+      const response = await fetch(apiEndpoint, {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json"
+        },
+        body: JSON.stringify(requestPayload)
+      });
+
+      const data = await response.json();
+
+      if (data.success) {
+        // Synchronize state contexts dynamically
+        localStorage.setItem("token", data.token);
+        localStorage.setItem("user", JSON.stringify(data.seller));
+        
+        setUser(data.seller);
+        setisSeller(true);
+
+        toast.success(isRegistering 
+          ? `Welcome, ${data.seller.shopName}! Your merchant portal is active.` 
+          : "Welcome back to your Vendor Command Center."
+        );
+
+        navigate("/seller/dashboard");
+      } else {
+        toast.error(data.message || "Authentication routine interrupted.");
+      }
+    } catch (error) {
+      console.error("Pipeline connectivity failure tracking:", error);
+      toast.error("Could not communicate with secure data clusters.");
     }
-
-    setUser({
-      email,
-      role: "seller",
-      shopName: isRegistering ? shopName : "Fresh Market Vendor Co."
-    });
-
-    setisSeller(true); 
-    navigate("/seller/dashboard");
   };
 
   return (
@@ -87,7 +113,7 @@ function SellerLogin() {
 
           {!isRegistering && (
             <div className="forgot-password-link">
-              <span onClick={() => toast.info("Password reset link sent to registered device.")}>
+              <span onClick={() => toast.info("Password reset tracking parameters dispatched.")}>
                 Forgot security key?
               </span>
             </div>
@@ -101,7 +127,12 @@ function SellerLogin() {
         <div className="seller-auth-footer">
           <p>
             {isRegistering ? "Already managing a store?" : "Want to launch a new patch?"}{" "}
-            <span onClick={() => setIsRegistering(!isRegistering)}>
+            <span onClick={() => {
+              setIsRegistering(!isRegistering);
+              setShopName("");
+              setEmail("");
+              setPassword("");
+            }}>
               {isRegistering ? "Sign In Here" : "Create Seller Account"}
             </span>
           </p>

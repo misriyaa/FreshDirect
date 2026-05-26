@@ -1,176 +1,161 @@
-import { createContext, useContext, useEffect, useState } from "react";
-
+import React, { createContext, useContext, useEffect, useState } from "react";
 import { useNavigate } from "react-router-dom";
 
+// Initialize Context Instance Namespace
 export const AppContext = createContext();
 
+// Resolve base backend API endpoint dynamically from Vite environmental variables
 const API_URL = `${import.meta.env.VITE_BACKEND_URL}/api`;
 
 export const AppContextProvider = ({ children }) => {
   const navigate = useNavigate();
 
-  // ================= USER =================
+  // ==========================================================================
+  // STATE DEFINITIONS & LOCAL STORAGE LIFECYCLES
+  // ==========================================================================
 
+  // Hydrate user session immediately from local browser caches
   const [user, setUser] = useState(() => {
     const storedUser = localStorage.getItem("user");
-
-    return storedUser ? JSON.parse(storedUser) : null;
+    try {
+      return storedUser ? JSON.parse(storedUser) : null;
+    } catch (error) {
+      console.error("Failed to parse cached user token string:", error);
+      return null;
+    }
   });
 
-  // ================= OTHER STATES =================
-
   const [isSeller, setisSeller] = useState(false);
-
   const [showUserLogin, setshowUserLogin] = useState(false);
-
   const [searchQuery, setSearchQuery] = useState("");
-
   const [cart, setCart] = useState([]);
-
   const [orders, setOrders] = useState([]);
-
   const [addresses, setAddresses] = useState([]);
 
-  // ================= LOAD USER DATA =================
+  // ==========================================================================
+  // AUTOMATED SYNCHRONIZATION EFFECT HOOKS
+  // ==========================================================================
 
+  // Automatically fetch fresh data records the moment user authentication changes
   useEffect(() => {
     if (user?._id) {
       fetchCart(user._id);
-
       fetchAddresses(user._id);
+    } else {
+      // Clean up local buffers on session teardown
+      setCart([]);
+      setAddresses([]);
     }
   }, [user]);
 
-  // ================= FETCH CART =================
+  // ==========================================================================
+  // BACKEND REPOSITORY ACCESS METRICS (FETCHERS)
+  // ==========================================================================
 
+  // Retrieve current shopping cart collection mapping from the cluster
   const fetchCart = async (userId) => {
     try {
       const response = await fetch(`${API_URL}/cart/${userId}`);
-
       const data = await response.json();
 
       if (data.success) {
         setCart(data.cart || []);
       }
     } catch (error) {
-      console.log("Fetch Cart Error:", error);
+      console.error("Fetch Cart API Exception Error:", error);
     }
   };
 
-  // ================= FETCH ADDRESSES =================
-
+  // Retrieve saved consumer shipping targets from the database
   const fetchAddresses = async (userId) => {
     try {
       const response = await fetch(`${API_URL}/address/${userId}`);
-
       const data = await response.json();
 
       if (data.success) {
         setAddresses(data.addresses || []);
       }
     } catch (error) {
-      console.log("Fetch Address Error:", error);
+      console.error("Fetch Address API Exception Error:", error);
     }
   };
 
-  // ================= ADD ADDRESS =================
+  // ==========================================================================
+  // SHIPPING LOCATION MANAGEMENT LOGIC
+  // ==========================================================================
 
+  // Append a fresh destination record schema block to MongoDB
   const addAddress = async (addressData) => {
     try {
       if (!user?._id) {
-        return {
-          success: false,
-        };
+        return { success: false, message: "Unauthenticated session context." };
       }
+
       const response = await fetch(`${API_URL}/address/${user._id}`, {
         method: "POST",
-
         headers: {
           "Content-Type": "application/json",
         },
-
         body: JSON.stringify(addressData),
       });
 
       const data = await response.json();
 
       if (data.success) {
-        setAddresses(data.addresses);
-
-        return {
-          success: true,
-        };
+        setAddresses(data.addresses || []);
+        return { success: true };
       }
 
-      return {
-        success: false,
-      };
+      return { success: false, message: data.message || "Failed to parse records." };
     } catch (error) {
-      console.log("Add Address Error:", error);
-
-      return {
-        success: false,
-      };
+      console.error("Add Address Execution Error:", error);
+      return { success: false, error };
     }
   };
 
-  // ================= SYNC CART =================
+  // ==========================================================================
+  // INTERACTIVE CART COMPONENT CONTROLLERS
+  // ==========================================================================
 
+  // Sync state modifications directly into the persistent database collection
   const syncCart = async (updatedCart) => {
     try {
-      if (!user) return;
+      if (!user?._id) return;
 
       await fetch(`${API_URL}/cart/${user._id}`, {
         method: "POST",
-
         headers: {
           "Content-Type": "application/json",
         },
-
         body: JSON.stringify({
           cart: updatedCart,
         }),
       });
     } catch (error) {
-      console.log("Sync Cart Error:", error);
+      console.error("Sync Cart Operation Failure:", error);
     }
   };
 
-  // ================= ADD TO CART =================
-
+  // Increment item counts or append fresh produce cards to local cart tracking arrays
   const addToCart = (product) => {
     setCart((prevCart) => {
       const existingItem = prevCart.find((item) => item._id === product._id);
-
       let updatedCart;
 
       if (existingItem) {
         updatedCart = prevCart.map((item) =>
-          item._id === product._id
-            ? {
-                ...item,
-                qty: item.qty + 1,
-              }
-            : item,
+          item._id === product._id ? { ...item, qty: item.qty + 1 } : item
         );
       } else {
-        updatedCart = [
-          ...prevCart,
-          {
-            ...product,
-            qty: 1,
-          },
-        ];
+        updatedCart = [...prevCart, { ...product, qty: 1 }];
       }
 
       syncCart(updatedCart);
-
       return updatedCart;
     });
   };
 
-  // ================= REMOVE FROM CART =================
-
+  // Decrement line items safely or filter item indices when quantities reach zero
   const removeFromCart = (productId) => {
     setCart((prevCart) => {
       const existingItem = prevCart.find((item) => item._id === productId);
@@ -183,109 +168,93 @@ export const AppContextProvider = ({ children }) => {
         updatedCart = prevCart.filter((item) => item._id !== productId);
       } else {
         updatedCart = prevCart.map((item) =>
-          item._id === productId
-            ? {
-                ...item,
-                qty: item.qty - 1,
-              }
-            : item,
+          item._id === productId ? { ...item, qty: item.qty - 1 } : item
         );
       }
 
       syncCart(updatedCart);
-
       return updatedCart;
     });
   };
 
-  // ================= CLEAR ITEM =================
-
+  // Instantly eliminate a categorical item stack completely from memory tracks
   const clearFromCart = (productId) => {
     const updatedCart = cart.filter((item) => item._id !== productId);
-
     setCart(updatedCart);
-
     syncCart(updatedCart);
   };
 
-  // ================= CLEAR CART =================
-
+  // Total database and state flush command
   const clearCart = async () => {
     setCart([]);
-
     await syncCart([]);
   };
 
-  // ================= LOGIN =================
+  // ==========================================================================
+  // USER PRIVILEGE SESSIONS WRAPPERS
+  // ==========================================================================
 
+  // Initialize consumer payload metrics securely into memory and storage caches
   const loginUser = (userData, token) => {
     setUser(userData);
-
     localStorage.setItem("user", JSON.stringify(userData));
-
     localStorage.setItem("token", token);
   };
 
-  // ================= LOGOUT =================
-
+  // Terminate active profile traces and clean up memory structures
   const logoutUser = () => {
     localStorage.removeItem("user");
-
     localStorage.removeItem("token");
-
     setUser(null);
-
+    setisSeller(false);
     setCart([]);
-
     setAddresses([]);
-
+    setOrders([]);
     navigate("/");
   };
 
-  // ================= ORDERS =================
-
+  // Append validated incoming orders to client logs tracking modules
   const addOrder = (newOrder) => {
     setOrders((prevOrders) => [newOrder, ...prevOrders]);
   };
 
-  // ================= CONTEXT VALUE =================
-
+  // ==========================================================================
+  // BUNDLED WORKSPACE CONTEXT EXPORT MATRIX
+  // ==========================================================================
   const value = {
     navigate,
 
-    // USER
+    // GLOBAL USER SESSION HANDLES
     user,
     setUser,
-
     loginUser,
     logoutUser,
 
-    // SELLER
+    // BACK-OFFICE OPERATION SELLER FLAGS
     isSeller,
     setisSeller,
 
-    // LOGIN MODAL
+    // SCREEN VIEW MODAL OVERLAYS CONTROLLER
     showUserLogin,
     setshowUserLogin,
 
-    // SEARCH
+    // SYSTEM PRODUCT SEARCH QUERIES RUNTIME PIPELINE
     searchQuery,
     setSearchQuery,
 
-    // CART
+    // SECURE BASKET INVENTORY TRACKERS
     cart,
     setCart,
-
     addToCart,
     removeFromCart,
     clearFromCart,
     clearCart,
 
-    // ORDERS
+    // FULFILLMENT REVENUE TRACKING METRICS
     orders,
     addOrder,
 
-    // ADDRESS
+    // DESTINATION REGISTRY ARRAYS HANDLES
     addresses,
     setAddresses,
     addAddress,
@@ -295,4 +264,5 @@ export const AppContextProvider = ({ children }) => {
   return <AppContext.Provider value={value}>{children}</AppContext.Provider>;
 };
 
+// Specialized hook accessor to easily parse context maps within child views
 export const useAppContext = () => useContext(AppContext);

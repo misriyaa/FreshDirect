@@ -13,6 +13,7 @@ import cartRoutes from "./routes/cartRoutes.js";
 import addressRoutes from "./routes/addressRoutes.js";
 import productRoutes from "./routes/productRoutes.js";
 import paymentRoutes from "./routes/paymentRoutes.js";
+import sellerRoutes from "./routes/sellerRoutes.js";
 import orderRoutes from "./routes/orderRoutes.js";
 
 import { seedDatabase } from "./config/dbSeeder.js";
@@ -54,6 +55,7 @@ app.use("/api/auth", authRoutes);
 app.use("/api/cart", cartRoutes);
 app.use("/api/address", addressRoutes);
 app.use("/api/payment", paymentRoutes);
+app.use("/api/seller", sellerRoutes);
 
 // ================= DATABASE & SERVER INITIALIZATION =================
 mongoose
