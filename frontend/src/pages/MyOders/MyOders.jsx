@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from "react";
 import { useAppContext } from "../../context/AppContext";
-import "./MyOrders.css";
+import "./MyOders.css";
 
 function MyOrders() {
   const { navigate, user } = useAppContext();
