@@ -184,7 +184,6 @@
   .promo-banner-responsive {
     height: auto; /* Drops 100vh locking */
     display: block;
-    padding: 3rem 4rem;
   }
 
   .pbr-container {
