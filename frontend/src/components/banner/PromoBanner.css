@@ -11,9 +11,8 @@
   width: 100%;
   background-color: var(--pbr-yellow);
   
-  /* Mobile: Shrink padding and constrain to viewport height */
-  padding: 1.5rem;
-  height: 100vh;
+  /* 🌟 FIXED: Dropped 100vh; added natural tight structural padding for mobile */
+  padding: 1.25rem 1.5rem;
   display: flex;
   align-items: center;
   justify-content: center;
@@ -37,7 +36,7 @@
   z-index: 1;
 }
 
-/* ─── MOBILE (default): highly compacted stacked column ─── */
+/* ─── MOBILE (default): Highly compacted stacked column ─── */
 .pbr-container {
   position: relative;
   width: 100%;
@@ -47,18 +46,22 @@
   display: flex;
   flex-direction: column;
   align-items: flex-start;
-  gap: 1rem; /* Tighter spacing */
+  /* 🌟 FIXED: Reduced spacing gaps between rows to save vertical real estate */
+  gap: 0.85rem; 
 }
 
 /* 1 ── Heading */
 .pbr-heading-wrapper {
   order: 1;
   width: 100%;
+  /* 🌟 FIXED: Give breathing space for the absolute stamp layout */
+  padding-right: 75px; 
+  box-sizing: border-box;
 }
 
 .pbr-main-heading {
   color: var(--pbr-dark);
-  font-size: 1.8rem; /* Scaled down */
+  font-size: 1.55rem; /* 🌟 FIXED: Scaled down slightly for tight line preservation */
   font-weight: 800;
   line-height: 1.15;
   letter-spacing: -0.02em;
@@ -70,12 +73,11 @@
 .pbr-image-frame {
   order: 2;
   width: 100%;
-  height: 22vh; /* Viewport-relative height prevents breaking past screen bounds */
-  min-height: 140px;
-  max-height: 180px;
+  /* 🌟 FIXED: Swapped vh dimensions to explicit height constraints for minimal pixel stretch */
+  height: 140px; 
   border-radius: 12px;
   overflow: hidden;
-  box-shadow: 0 6px 16px rgba(0, 0, 0, 0.15);
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.12);
 }
 
 .pbr-display-img {
@@ -89,9 +91,9 @@
 .pbr-reviews-wrapper {
   order: 3;
   display: flex;
-  flex-direction: row; /* Set to row to save massive vertical space */
+  flex-direction: row;
   align-items: center;
-  gap: 1rem;
+  gap: 0.75rem; /* 🌟 FIXED: Compacted horizontal spacing values */
   width: 100%;
 }
 
@@ -101,13 +103,13 @@
 }
 
 .pbr-avatar {
-  width: 2.75rem; /* Scaled down */
-  height: 2.75rem; /* Scaled down */
+  width: 2.5rem; /* 🌟 FIXED: Downscaled size limits */
+  height: 2.5rem; 
   border-radius: 50%;
   object-fit: cover;
   border: 2px solid var(--pbr-yellow);
-  margin-right: -0.85rem;
-  box-shadow: 0 3px 10px rgba(0, 0, 0, 0.15);
+  margin-right: -0.75rem; /* 🌟 FIXED: Tighter overlap stack */
+  box-shadow: 0 3px 8px rgba(0, 0, 0, 0.12);
 }
 
 .pbr-avatar:last-child {
@@ -116,28 +118,30 @@
 
 .pbr-text-reviews {
   color: var(--pbr-dark);
-  font-size: 1.1rem; /* Scaled down */
+  font-size: 0.95rem; /* 🌟 FIXED: Elegant layout typography optimization */
   font-weight: 800;
-  line-height: 1.25;
+  line-height: 1.2;
   margin: 0;
 }
 
 /* 4 ── Stamp */
 .pbr-stamp-wrapper {
   order: 4;
-  width: 100%;
-  display: flex;
-  justify-content: flex-end;
-  margin-top: -3.5rem; /* Pulled up even higher to overlap image/reviews safely */
+  /* 🌟 FIXED: Positioned absolutely in the top-right corner on mobile to eliminate row height layout pushing */
+  position: absolute;
+  top: -0.25rem;
+  right: -0.25rem;
+  width: auto;
+  margin-top: 0; 
 }
 
 .pbr-circular-stamp {
   position: relative;
-  width: 85px; /* Scaled down */
-  height: 85px; /* Scaled down */
+  width: 70px; /* 🌟 FIXED: Compact structural stamp footprint */
+  height: 70px; 
   background-color: var(--pbr-white);
   border-radius: 50%;
-  box-shadow: 0 6px 16px rgba(0, 0, 0, 0.12);
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
   display: flex;
   align-items: center;
   justify-content: center;
@@ -150,17 +154,17 @@
 }
 
 .pbr-stamp-text {
-  font-size: 9.5px;
+  font-size: 8.5px;
   font-weight: 700;
   fill: var(--pbr-dark);
-  letter-spacing: 1.5px;
+  letter-spacing: 1px;
   text-transform: uppercase;
 }
 
 .pbr-stamp-center-arrow {
   position: absolute;
-  width: 50px; /* Scaled down */
-  height: 50px; /* Scaled down */
+  width: 40px; /* 🌟 FIXED: Downscaled arrow action button wrapper */
+  height: 40px; 
   background-color: var(--pbr-green);
   color: var(--pbr-yellow);
   border-radius: 50%;
@@ -170,8 +174,8 @@
 }
 
 .pbr-stamp-center-arrow svg {
-  width: 16px;
-  height: 16px;
+  width: 14px;
+  height: 14px;
 }
 
 @keyframes spinBadge {
@@ -179,10 +183,10 @@
   to   { transform: rotate(360deg); }
 }
 
-/* ─── DESKTOP 768px+: Restores original large row layout ─── */
+/* ─── DESKTOP 768px+: Restores original pristine large row layout ─── */
 @media (min-width: 768px) {
   .promo-banner-responsive {
-    height: auto; /* Drops 100vh locking */
+    padding: 2rem 1.5rem;
     display: block;
   }
 
@@ -191,6 +195,18 @@
     align-items: center;
     justify-content: space-between;
     gap: 1.5rem;
+  }
+
+  /* Reset layout position boundaries back to row layers */
+  .pbr-heading-wrapper {
+    order: 3;
+    width: auto;
+    padding-right: 0;
+  }
+
+  .pbr-main-heading {
+    font-size: 1.55rem;
+    text-align: right;
   }
 
   .pbr-reviews-wrapper {
@@ -214,6 +230,9 @@
 
   .pbr-stamp-wrapper {
     order: 2;
+    position: relative;
+    top: auto;
+    right: auto;
     width: auto;
     margin: 0;
     justify-content: center;
@@ -234,22 +253,10 @@
     height: 22px;
   }
 
-  .pbr-heading-wrapper {
-    order: 3;
-    width: auto;
-  }
-
-  .pbr-main-heading {
-    font-size: 1.55rem;
-    text-align: right;
-  }
-
   .pbr-image-frame {
     order: 4;
     width: 220px;
     height: 135px;
-    min-height: auto;
-    max-height: none;
     flex: 0 0 220px;
   }
 }
