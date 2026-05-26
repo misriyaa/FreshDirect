@@ -22,8 +22,8 @@ function SellerLogin() {
     try {
       // Direct variable mapping pointing cleanly to your Express backend base path
       const apiEndpoint = isRegistering
-        ? "http://localhost:5000/api/seller/register"
-        : "http://localhost:5000/api/seller/login";
+        ? `${import.meta.env.VITE_BACKEND_URL}/api/seller/register`
+        : `${import.meta.env.VITE_BACKEND_URL}/api/seller/login`;
 
       const requestPayload = isRegistering
         ? { shopName, email, password }
