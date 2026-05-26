@@ -10,17 +10,19 @@ const Orders = () => {
   }, []);
 
   const fetchOrders = async () => {
-    try {
-      const response = await fetch(`${import.meta.env.VITE_BACKEND_URL}/api/orders`);
-      const data = await response.json();
+  try {
+    const response = await fetch(`${import.meta.env.VITE_BACKEND_URL}/api/orders`);
+    const data = await response.json();
 
-      if (data.success) {
-        setOrderList(data.orders || []);
-      }
-    } catch (error) {
-      console.error("Pipeline failure reading order registries:", error);
+    console.log("=== BACKEND ORDERS RESPONSE VALIDATION ===", data); // 🌟 ADD THIS TEMPORARILY
+
+    if (data.success) {
+      setOrderList(data.orders || []);
     }
-  };
+  } catch (error) {
+    console.error("Pipeline failure reading order registries:", error);
+  }
+};
 
   const handleStatusChange = async (orderId, newStatus) => {
     try {
