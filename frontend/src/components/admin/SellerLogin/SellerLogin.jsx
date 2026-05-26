@@ -1,12 +1,12 @@
 import React, { useState } from "react";
 import { useAppContext } from "../../../context/AppContext";
 import { toast } from "react-toastify";
-import './SellerLogin.css';
+import "./SellerLogin.css";
 
 function SellerLogin() {
   const { setUser, setisSeller, navigate } = useAppContext();
-  
-  const [email, setEmail] = useState('');
+
+  const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
   const [isRegistering, setIsRegistering] = useState(false);
   const [shopName, setShopName] = useState("");
@@ -21,36 +21,31 @@ function SellerLogin() {
 
     try {
       // Direct variable mapping pointing cleanly to your Express backend base path
-      const apiEndpoint = isRegistering 
-        ? "http://localhost:5000/api/seller/register" 
+      const apiEndpoint = isRegistering
+        ? "http://localhost:5000/api/seller/register"
         : "http://localhost:5000/api/seller/login";
 
-      const requestPayload = isRegistering 
-        ? { shopName, email, password } 
+      const requestPayload = isRegistering
+        ? { shopName, email, password }
         : { email, password };
 
       const response = await fetch(apiEndpoint, {
         method: "POST",
         headers: {
-          "Content-Type": "application/json"
+          "Content-Type": "application/json",
         },
-        body: JSON.stringify(requestPayload)
+        body: JSON.stringify(requestPayload),
       });
 
       const data = await response.json();
 
       if (data.success) {
-        // 🌟 STEP 1: Persist the raw JSON string profile to your browser's localStorage
-        localStorage.setItem("token", data.token);
-        localStorage.setItem("user", JSON.stringify(data.seller));
-        
-        // 🌟 STEP 2: Update AppContext states. The context handles the 'isSeller' evaluation on reboots!
-        setUser(data.seller);
-        setisSeller(true);
+        loginUser(data.seller, data.token);
 
-        toast.success(isRegistering 
-          ? `Welcome, ${data.seller.shopName}! Your merchant portal is active.` 
-          : "Welcome back to your Vendor Command Center."
+        toast.success(
+          isRegistering
+            ? `Welcome, ${data.seller.shopName}! Your merchant portal is active.`
+            : "Welcome back to your Vendor Command Center.",
         );
 
         // Advance layout directly to the secure dashboard grid view area
@@ -67,13 +62,13 @@ function SellerLogin() {
   return (
     <div className="seller-auth-container">
       <div className="seller-auth-backdrop-glow"></div>
-      
+
       <div className="seller-auth-card">
         <div className="seller-auth-header">
           <h2>{isRegistering ? "Merchant Registration" : "Vendor Portal"}</h2>
           <p>
-            {isRegistering 
-              ? "Register your shop to start selling fresh produce worldwide." 
+            {isRegistering
+              ? "Register your shop to start selling fresh produce worldwide."
               : "Access your dashboard, manage inventory, and fulfill live orders."}
           </p>
         </div>
@@ -116,7 +111,11 @@ function SellerLogin() {
 
           {!isRegistering && (
             <div className="forgot-password-link">
-              <span onClick={() => toast.info("Password reset tracking parameters dispatched.")}>
+              <span
+                onClick={() =>
+                  toast.info("Password reset tracking parameters dispatched.")
+                }
+              >
                 Forgot security key?
               </span>
             </div>
@@ -129,13 +128,17 @@ function SellerLogin() {
 
         <div className="seller-auth-footer">
           <p>
-            {isRegistering ? "Already managing a store?" : "Want to launch a new patch?"}{" "}
-            <span onClick={() => {
-              setIsRegistering(!isRegistering);
-              setShopName("");
-              setEmail("");
-              setPassword("");
-            }}>
+            {isRegistering
+              ? "Already managing a store?"
+              : "Want to launch a new patch?"}{" "}
+            <span
+              onClick={() => {
+                setIsRegistering(!isRegistering);
+                setShopName("");
+                setEmail("");
+                setPassword("");
+              }}
+            >
               {isRegistering ? "Sign In Here" : "Create Seller Account"}
             </span>
           </p>
