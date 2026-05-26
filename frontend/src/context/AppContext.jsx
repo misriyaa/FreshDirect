@@ -202,14 +202,19 @@ export const AppContextProvider = ({ children }) => {
   };
 
   // Terminate active profile traces and clean up memory structures
-  const logoutUser = () => {
+ const logoutUser = () => {
+    // 1. Clear ALL storage footprints cleanly
     localStorage.removeItem("user");
     localStorage.removeItem("token");
+
+    // 2. Clear all state tracks synchronously
     setUser(null);
-    setisSeller(false);
+    setisSeller(false); // 🌟 CRITICAL: Must be reset to false here
     setCart([]);
     setAddresses([]);
     setOrders([]);
+
+    // 3. Kick back to home or the blank seller login track
     navigate("/");
   };
 
