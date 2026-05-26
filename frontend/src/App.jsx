@@ -22,6 +22,21 @@ const App = () => {
   const [isCartOpen, setIsCartOpen] = useState(false);
   const [isLoginOpen, setIsLoginOpen] = useState(false);
 
+  // 🌟 FAST-HYDRATION CHECK: Evaluates storage strings synchronously before render-blocking checks pass down
+  const checkLocalStorageAuth = () => {
+    try {
+      const storedUser = localStorage.getItem("user");
+      if (!storedUser) return false;
+      const parsedUser = JSON.parse(storedUser);
+      return parsedUser.role === "seller";
+    } catch (e) {
+      return false;
+    }
+  };
+
+  // The active validation marker accepts state context OR fallback storage values
+  const hasSellerPrivileges = isSeller || checkLocalStorageAuth();
+
   return (
     <div>
       {!isSellerPath && (
@@ -40,24 +55,24 @@ const App = () => {
           <Route path="/checkout" element={<Payment />} />
           <Route path="/my-orders" element={<MyOrders />} />
 
-          {/* ================= UPDATED CORE SELLER ROUTES SYSTEM ================= */}
+          {/* ================= FIXED CORE SELLER ROUTES SYSTEM ================= */}
           
           {/* Base Entry point: Redirects authenticated users or guests */}
           <Route 
             path="/seller" 
-            element={isSeller ? <Navigate to="/seller/dashboard" replace /> : <Navigate to="/seller/login" replace />} 
+            element={hasSellerPrivileges ? <Navigate to="/seller/dashboard" replace /> : <Navigate to="/seller/login" replace />} 
           />
           
           {/* Isolated Login Gate Route */}
           <Route 
             path="/seller/login" 
-            element={isSeller ? <Navigate to="/seller/dashboard" replace /> : <SellerLogin />} 
+            element={hasSellerPrivileges ? <Navigate to="/seller/dashboard" replace /> : <SellerLogin />} 
           />
           
           {/* Wildcard Layout Route: Handled dynamically by Nesting Sub-Routes inside SellerLayout */}
           <Route 
             path="/seller/*" 
-            element={isSeller ? <SellerLayout /> : <Navigate to="/seller/login" replace />} 
+            element={hasSellerPrivileges ? <SellerLayout /> : <Navigate to="/seller/login" replace />} 
           />
         </Routes>
       </div>

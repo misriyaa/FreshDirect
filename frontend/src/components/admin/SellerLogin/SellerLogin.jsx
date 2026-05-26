@@ -20,6 +20,7 @@ function SellerLogin() {
     }
 
     try {
+      // Direct variable mapping pointing cleanly to your Express backend base path
       const apiEndpoint = isRegistering 
         ? "http://localhost:5000/api/seller/register" 
         : "http://localhost:5000/api/seller/login";
@@ -39,10 +40,11 @@ function SellerLogin() {
       const data = await response.json();
 
       if (data.success) {
-        // Synchronize state contexts dynamically
+        // 🌟 STEP 1: Persist the raw JSON string profile to your browser's localStorage
         localStorage.setItem("token", data.token);
         localStorage.setItem("user", JSON.stringify(data.seller));
         
+        // 🌟 STEP 2: Update AppContext states. The context handles the 'isSeller' evaluation on reboots!
         setUser(data.seller);
         setisSeller(true);
 
@@ -51,6 +53,7 @@ function SellerLogin() {
           : "Welcome back to your Vendor Command Center."
         );
 
+        // Advance layout directly to the secure dashboard grid view area
         navigate("/seller/dashboard");
       } else {
         toast.error(data.message || "Authentication routine interrupted.");
