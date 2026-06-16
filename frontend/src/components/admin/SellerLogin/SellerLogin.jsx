@@ -4,7 +4,7 @@ import { toast } from "react-toastify";
 import "./SellerLogin.css";
 
 function SellerLogin() {
-  const { setUser, setisSeller, navigate } = useAppContext();
+  const { setUser, setisSeller, navigate, loginUser } = useAppContext();
 
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
