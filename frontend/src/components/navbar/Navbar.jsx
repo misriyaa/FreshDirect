@@ -106,12 +106,12 @@ const Navbar = ({ onCartClick, onLoginClick }) => {
             </NavLink>
           )}
 
-          <NavLink
+          {/* <NavLink
             to="/contact"
             className={getNavLinkClass}
           >
             Contact
-          </NavLink>
+          </NavLink> */}
 
         </div>
 
