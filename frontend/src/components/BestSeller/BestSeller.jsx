@@ -1,7 +1,6 @@
 import React, { useRef, useEffect, useState } from "react";
-
 import ProductCard from "../ProductCard/ProductCard";
-
+import { BACKEND_URL } from "../../config";
 import "./BestSeller.css";
 
 const BestSeller = () => {
@@ -14,7 +13,7 @@ const BestSeller = () => {
     const fetchProducts = async () => {
       try {
         const response = await fetch(
-          `${import.meta.env.VITE_BACKEND_URL}/api/products`,
+          `${BACKEND_URL}/api/products`,
         );
 
         const data = await response.json();

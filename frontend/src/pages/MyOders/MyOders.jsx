@@ -1,5 +1,6 @@
 import React, { useEffect, useState } from "react";
 import { useAppContext } from "../../context/AppContext";
+import { BACKEND_URL } from "../../config";
 import "./MyOders.css";
 
 function MyOrders() {
@@ -18,7 +19,7 @@ function MyOrders() {
   const fetchOrders = async () => {
     try {
       const response = await fetch(
-        `${import.meta.env.VITE_BACKEND_URL}/api/orders?email=${user?.email}`
+        `${BACKEND_URL}/api/orders?email=${user?.email}`
       );
       const data = await response.json();
       if (data.success) {

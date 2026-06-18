@@ -1,6 +1,7 @@
 import React, { useState, useEffect } from "react";
 import { toast } from "react-toastify";
 import { useAppContext } from "../../context/AppContext";
+import { BACKEND_URL } from "../../config";
 import "./Login.css";
 
 const Login = ({ isOpen, onClose }) => {
@@ -55,7 +56,7 @@ const Login = ({ isOpen, onClose }) => {
             };
 
       const response = await fetch(
-        `${import.meta.env.VITE_BACKEND_URL}/api/auth/${endpoint}`,
+        `${BACKEND_URL}/api/auth/${endpoint}`,
         {
           method: "POST",
 

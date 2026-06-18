@@ -1,5 +1,6 @@
 import React, { useEffect, useState } from "react";
 import { toast } from "react-toastify";
+import { BACKEND_URL } from "../../config";
 
 function ProductList() {
   const [products, setProducts] = useState([]);
@@ -8,7 +9,7 @@ function ProductList() {
   // ================= FETCH =================
   const fetchProducts = async () => {
     try {
-      const res = await fetch(`${import.meta.env.VITE_BACKEND_URL}/api/products`);
+      const res = await fetch(`${BACKEND_URL}/api/products`);
       const data = await res.json();
       setProducts(data.products || []);
     } catch (err) {
@@ -26,7 +27,7 @@ function ProductList() {
   const handleToggleStock = async (id) => {
     try {
       const res = await fetch(
-        `${import.meta.env.VITE_BACKEND_URL}/api/products/${id}/stock`,
+        `${BACKEND_URL}/api/products/${id}/stock`,
         { method: "PATCH" }
       );
       const data = await res.json();
@@ -48,7 +49,7 @@ function ProductList() {
 
     try {
       const res = await fetch(
-        `${import.meta.env.VITE_BACKEND_URL}/api/products/${id}`,
+        `${BACKEND_URL}/api/products/${id}`,
         { method: "DELETE" }
       );
       const data = await res.json();
@@ -183,7 +184,7 @@ function ProductList() {
                         src={
                           p.image?.startsWith("http")
                             ? p.image
-                            :`${import.meta.env.VITE_BACKEND_URL}/${p.image}`
+                            :`${BACKEND_URL}/${p.image}`
                         }
                         alt={p.name}
                         className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-300 ease-out"

@@ -1,5 +1,6 @@
 import React, { useEffect, useState } from 'react';
 import { toast } from 'react-toastify';
+import { BACKEND_URL } from "../../config";
 
 const Orders = () => {
   const boxIcon = "https://raw.githubusercontent.com/prebuiltui/prebuiltui/main/assets/e-commerce/boxIcon.svg";
@@ -11,8 +12,7 @@ const Orders = () => {
 
   const fetchOrders = async () => {
     try {
-      const baseUrl = import.meta.env.VITE_BACKEND_URL || "http://localhost:5000";
-      const response = await fetch(`${baseUrl}/api/orders`);
+      const response = await fetch(`${BACKEND_URL}/api/orders`);
       
       if (!response.ok) {
         throw new Error(`HTTP network channel rejected with code: ${response.status}`);
@@ -31,9 +31,8 @@ const Orders = () => {
 
   const handleStatusChange = async (orderId, newStatus) => {
     try {
-      const baseUrl = import.meta.env.VITE_BACKEND_URL || "http://localhost:5000";
       const response = await fetch(
-        `${baseUrl}/api/orders/status/${orderId}`,
+        `${BACKEND_URL}/api/orders/status/${orderId}`,
         {
           method: "PUT",
           headers: {

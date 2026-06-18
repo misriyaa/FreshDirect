@@ -1,5 +1,6 @@
 import React, { useState } from "react";
 import { toast } from "react-toastify";
+import { BACKEND_URL } from "../../config";
 
 const AddProduct = () => {
   const [image, setImage] = useState(null);
@@ -40,7 +41,7 @@ const AddProduct = () => {
       }
 
       const response = await fetch(
-        `${import.meta.env.VITE_BACKEND_URL}/api/products/add`,
+        `${BACKEND_URL}/api/products/add`,
         {
           method: "POST",
           body: formData,

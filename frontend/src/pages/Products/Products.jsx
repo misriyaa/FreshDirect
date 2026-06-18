@@ -1,7 +1,8 @@
 import React, { useEffect, useState } from "react";
 import "./Product.css";
-import ProductCard from "../../components/ProductCard/ProductCard";
 import { useAppContext } from "../../context/AppContext";
+import ProductCard from "../../components/ProductCard/ProductCard";
+import { BACKEND_URL } from "../../config";
 
 function Products() {
   const { searchQuery, setSearchQuery } = useAppContext();
@@ -17,7 +18,7 @@ function Products() {
   useEffect(() => {
     const fetchProducts = async () => {
       try {
-        const response = await fetch(`${import.meta.env.VITE_BACKEND_URL}/api/products`);
+        const response = await fetch(`${BACKEND_URL}/api/products`);
         const data = await response.json();
         if (data.success) {
           setProducts(data.products || []);
@@ -152,11 +153,11 @@ function Products() {
                 if (product.images && product.images.length > 0) {
                   imageUrl = product.images[0].startsWith("http")
                     ? product.images[0]
-                    : `${import.meta.env.VITE_BACKEND_URL}/${product.images[0]}`;
+                    : `${BACKEND_URL}/${product.images[0]}`;
                 } else if (product.image) {
                   imageUrl = product.image.startsWith("http")
                     ? product.image
-                    : `${import.meta.env.VITE_BACKEND_URL}/${product.image}`;
+                    : `${BACKEND_URL}/${product.image}`;
                 }
 
                 return (

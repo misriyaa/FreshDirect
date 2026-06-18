@@ -3,6 +3,7 @@ import { useParams, Link } from "react-router-dom";
 import { toast } from "react-toastify";
 import ProductCard from "../../components/ProductCard/ProductCard";
 import { useAppContext } from "../../context/AppContext";
+import { BACKEND_URL } from "../../config";
 import "./ProductDetails.css";
 
 
@@ -25,7 +26,7 @@ function ProductDetails() {
       try {
         // ================= TRY BACKEND =================
         const response = await fetch(
-          `${import.meta.env.VITE_BACKEND_URL}/api/products/${id}`
+          `${BACKEND_URL}/api/products/${id}`
         );
 
         const data = await response.json();
@@ -51,7 +52,7 @@ function ProductDetails() {
   const firstImage =
     fetchedProduct.image.startsWith("http")
       ? fetchedProduct.image
-      :`${import.meta.env.VITE_BACKEND_URL}/${fetchedProduct.image}`;
+      :`${BACKEND_URL}/${fetchedProduct.image}`;
 
   setActiveImage(firstImage);
 }
@@ -61,7 +62,7 @@ function ProductDetails() {
 
           try {
             const allProductsRes = await fetch(
-              `${import.meta.env.VITE_BACKEND_URL}/api/products`
+              `${BACKEND_URL}/api/products`
             );
 
             const allProductsData =
@@ -146,7 +147,7 @@ const imageGallery = product.image
   ? [
       product.image.startsWith("http")
         ? product.image
-        :`${import.meta.env.VITE_BACKEND_URL}/${product.image}`,
+        :`${BACKEND_URL}/${product.image}`,
     ]
   : ["https://via.placeholder.com/400"];
 

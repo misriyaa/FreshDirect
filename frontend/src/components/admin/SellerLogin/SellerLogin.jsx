@@ -1,6 +1,7 @@
 import React, { useState } from "react";
 import { useAppContext } from "../../../context/AppContext";
 import { toast } from "react-toastify";
+import { BACKEND_URL } from "../../../config";
 import "./SellerLogin.css";
 
 function SellerLogin() {
@@ -22,8 +23,8 @@ function SellerLogin() {
     try {
       // Direct variable mapping pointing cleanly to your Express backend base path
       const apiEndpoint = isRegistering
-        ? `${import.meta.env.VITE_BACKEND_URL}/api/seller/register`
-        : `${import.meta.env.VITE_BACKEND_URL}/api/seller/login`;
+        ? `${BACKEND_URL}/api/seller/register`
+        : `${BACKEND_URL}/api/seller/login`;
 
       const requestPayload = isRegistering
         ? { shopName, email, password }

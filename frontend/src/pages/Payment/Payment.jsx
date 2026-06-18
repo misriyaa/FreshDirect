@@ -6,6 +6,7 @@ import React, {
 } from "react";
 
 import { useAppContext } from "../../context/AppContext";
+import { BACKEND_URL } from "../../config";
 
 import CheckoutPayment from "../../components/CheckoutPayment/CheckoutPayment";
 import CheckoutAddress from "../../components/CheckoutAddress/CheckoutAddress";
@@ -108,7 +109,7 @@ function Payment() {
 
         const response =
           await fetch(
-            `${import.meta.env.VITE_BACKEND_URL}/api/orders/create`,
+            `${BACKEND_URL}/api/orders/create`,
             {
               method: "POST",
 
@@ -225,7 +226,7 @@ function Payment() {
 
         const orderResponse =
           await fetch(
-            `${import.meta.env.VITE_BACKEND_URL}/api/payment/create-order`,
+            `${BACKEND_URL}/api/payment/create-order`,
             {
               method: "POST",
 
@@ -289,7 +290,7 @@ function Payment() {
 
                 const verifyRes =
                   await fetch(
-                    `${import.meta.env.VITE_BACKEND_URL}/api/payment/verify-payment`,
+                    `${BACKEND_URL}/api/payment/verify-payment`,
                     {
                       method:
                         "POST",

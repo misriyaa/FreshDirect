@@ -1,9 +1,8 @@
 import React, { createContext, useContext, useEffect, useState } from "react";
 import { useNavigate } from "react-router-dom";
+import { API_URL } from "../config";
 
 export const AppContext = createContext();
-
-const API_URL = `${import.meta.env.VITE_BACKEND_URL}/api`;
 
 export const AppContextProvider = ({ children }) => {
   const navigate = useNavigate();

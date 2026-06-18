@@ -2,6 +2,7 @@ import React, { useState } from "react";
 import { useNavigate } from "react-router-dom";
 import { toast } from "react-toastify";
 import { useAppContext } from "../../context/AppContext";
+import { BACKEND_URL } from "../../config";
 import "./ProductCard.css";
 
 const ProductCard = ({ product }) => {
@@ -39,7 +40,7 @@ const ProductCard = ({ product }) => {
       image
         ? image.startsWith("http")
           ? image
-          :`${import.meta.env.VITE_BACKEND_URL}/${image}`
+          :`${BACKEND_URL}/${image}`
         : "https://via.placeholder.com/300"
     );
 
